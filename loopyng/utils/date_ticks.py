@@ -1,42 +1,48 @@
-__author__ = 'thorwhalen'
+"""
+Date tick formatting utilities for time-based plots.
+
+Provides functions to convert numeric timestamps to formatted time strings for plot axes.
+"""
 
 import numpy as np
 from datetime import datetime as dt
 
 unit_str_to_unit_in_seconds = {
-    'day': 3600 * 24,
-    'hour': 3600,
-    'h': 3600,
-    'minute': 60,
-    'mn': 60,
-    'second': 1,
-    's': 1,
-    'millisecond': 0.001,
-    'ms': 0.001,
-    'microsecond': 1e-6,
-    'us': 1e-6,
+    "day": 3600 * 24,
+    "hour": 3600,
+    "h": 3600,
+    "minute": 60,
+    "mn": 60,
+    "second": 1,
+    "s": 1,
+    "millisecond": 0.001,
+    "ms": 0.001,
+    "microsecond": 1e-6,
+    "us": 1e-6,
 }
 
-unit_in_seconds = np.array([
-    60 * 60 * 24 * 365,  # year
-    60 * 60 * 24 * 30,  # month
-    60 * 60 * 24 * 7,  # week
-    60 * 60 * 24,  # day
-    60 * 60,  # hour
-    60,  # minute
-    1,  # second
-    1e-3,  # millisecond
-    1e-6,  # microsecond
-    1e-9  # nanosecond
-])
+unit_in_seconds = np.array(
+    [
+        60 * 60 * 24 * 365,  # year
+        60 * 60 * 24 * 30,  # month
+        60 * 60 * 24 * 7,  # week
+        60 * 60 * 24,  # day
+        60 * 60,  # hour
+        60,  # minute
+        1,  # second
+        1e-3,  # millisecond
+        1e-6,  # microsecond
+        1e-9,  # nanosecond
+    ]
+)
 
 strftime_format_for_unit = {
-    60 * 60 * 24 * 30: '%y-%m-%d',  # month
-    60 * 60 * 24 * 7: '%b %d',  # week
-    60 * 60 * 24: '%b %d',  # day
-    60 * 60: '%d-%H:%M',  # hour
-    60: '%H:%M:%S',  # minute
-    1: '%M:%S.%f',  # second
+    60 * 60 * 24 * 30: "%y-%m-%d",  # month
+    60 * 60 * 24 * 7: "%b %d",  # week
+    60 * 60 * 24: "%b %d",  # day
+    60 * 60: "%d-%H:%M",  # hour
+    60: "%H:%M:%S",  # minute
+    1: "%M:%S.%f",  # second
     1e-3: "%S''%f",  # millisecond
     1e-6: "%S''%f",  # microsecond
 }
@@ -86,10 +92,10 @@ def strftime_with_precision(tick, format, sub_secs_precision=2):
     :return: Formatted string
     """
     t = tick.strftime(format)
-    is_us = '%f' in format
+    is_us = "%f" in format
     if is_us:
         if sub_secs_precision is None:
-            while t[-1] == '0':
+            while t[-1] == "0":
                 t = t[:-1]
             while not t[-1].isdigit():
                 t = t[:-1]
@@ -115,8 +121,14 @@ def strftime_with_precision(tick, format, sub_secs_precision=2):
 
 def str_ticks(ticks, ticks_unit, sub_secs_precision=2):
     t_format = strftime_format_for_ticks(ticks, ticks_unit)
-    return [strftime_with_precision(utc_datetime_from_val_and_unit(x, ticks_unit), t_format, sub_secs_precision) for x
-            in ticks]
+    return [
+        strftime_with_precision(
+            utc_datetime_from_val_and_unit(x, ticks_unit),
+            t_format,
+            sub_secs_precision,
+        )
+        for x in ticks
+    ]
 
 
 def unit_aligned_ticks(ticks, ticks_unit):

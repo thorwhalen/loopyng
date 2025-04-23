@@ -1,44 +1,19 @@
-from numpy import (
-    array,
-    mean,
-    shape,
-    linspace,
-    max,
-    log10,
-    ceil,
-    int16,
-    hstack,
-    zeros,
-    argmin,
-    ndim,
-)
+"""
+Audio processing and playback utilities.
+
+Provides classes and functions for working with audio data, including
+playback, visualization, and basic audio transformations.
+"""
+
+from numpy import array, max, log10, ceil, int16, hstack, zeros, argmin, ndim
 from numpy.random import randint
 import soundfile as sf
 import os
 import matplotlib.pylab as plt
 from IPython.display import Audio
 
-from loopyng.utils.date_ticks import str_ticks
-
-try:
-    import librosa
-    import librosa.display
-
-    WITH_LIBROSA = True
-except ImportError:
-    WITH_LIBROSA = False
-    import warnings
-
-    warnings.warn(
-        "Couldn't import librosa. You can install is, but know that you "
-        "don't NEED it unless you want to compute melspectrograms."
-    )
-
-    class librosa:
-        def __getattr__(self, a):
-            raise ModuleNotFoundError(
-                f"You don't actually have {self.__class__.__name__}"
-            )
+from loopyng.utils.plotting import plot_wf
+from loopyng.utils.librosa_utils import specshow, melspectrogram, amplitude_to_db
 
 
 default_sr = 44100
@@ -48,9 +23,9 @@ default_wf_type = int16
 def subtype_of_wf(wf):
     if len(wf) > 0:
         if isinstance(wf[0], (int, int16)):
-            return 'PCM_16'
+            return "PCM_16"
         else:
-            return 'FLOAT'
+            return "FLOAT"
     else:
         return None
 
@@ -82,7 +57,7 @@ def ensure_mono(wf):
 
 
 def is_wav_file(filepath):
-    return os.path.splitext(filepath)[1] == '.wav'
+    return os.path.splitext(filepath)[1] == ".wav"
 
 
 def plot_melspectrogram(spect_mat, sr=default_sr, hop_length=512, name=None):
@@ -90,53 +65,39 @@ def plot_melspectrogram(spect_mat, sr=default_sr, hop_length=512, name=None):
     plt.figure(figsize=(12, 4))
     # Display the spectrogram on a mel scale
     # sample rate and hop length parameters are used to render the time axis
-    librosa.display.specshow(
-        spect_mat, sr=sr, hop_length=hop_length, x_axis='time', y_axis='mel'
-    )
+    specshow(spect_mat, sr=sr, hop_length=hop_length, x_axis="time", y_axis="mel")
     # Put a descriptive title on the plot
     if name is not None:
         plt.title('mel power spectrogram of "{}"'.format(name))
     else:
-        plt.title('mel power spectrogram')
+        plt.title("mel power spectrogram")
     # draw a color bar
-    plt.colorbar(format='%+02.0f dB')
+    plt.colorbar(format="%+02.0f dB")
     # Make the figure layout compact
     plt.tight_layout()
 
 
 def wf_and_sr(*args, **kwargs):
+    """
+    :param args: Either the file path to a sound or a tuple of (wf, sr)
+    :param kwargs: wf = wf, sr = sr
+    :return: wf, sr
+    """
     if len(args) > 0:
         args_0 = args[0]
         if isinstance(args_0, str):
-            kwargs['filepath'] = args_0
-        elif isinstance(args_0, tuple):
-            kwargs['wf'], kwargs['sr'] = args_0
+            kwargs["filepath"] = args_0
+        elif isinstance(args_0, tuple) and len(args_0) == 2:
+            kwargs["wf"], kwargs["sr"] = args_0
+        elif hasattr(args_0, "wf") and hasattr(args_0, "sr"):
+            kwargs["wf"], kwargs["sr"] = args_0.wf, args_0.sr
     kwargs_keys = list(kwargs.keys())
-    if 'wf' in kwargs_keys:
-        return kwargs['wf'], kwargs['sr']
-
-
-def plot_wf(wf, sr=None, figsize=(15, 5), offset_s=0, ax=None, **kwargs):
-    if figsize is not None:
-        plt.figure(figsize=figsize)
-    _ax = ax or plt
-    if sr is not None:
-        _ax.plot(
-            offset_s + linspace(start=0, stop=len(wf) / float(sr), num=len(wf)),
-            wf,
-            **kwargs,
+    if "wf" in kwargs_keys:
+        return kwargs["wf"], kwargs["sr"]
+    else:
+        raise ValueError(
+            f"Could not result waveform from the arguments provided: {args}, {kwargs}"
         )
-    else:
-        _ax.plot(wf, **kwargs)
-    if _ax == plt:
-        _xticks, _ = plt.xticks()
-        plt.xticks(_xticks, str_ticks(ticks=_xticks, ticks_unit=1))
-        plt.margins(x=0)
-    else:
-        _xticks = _ax.get_xticks()
-        _ax.set_xticks(_xticks)
-        _ax.set_xticklabels(str_ticks(ticks=_xticks, ticks_unit=1))
-        _ax.margins(x=0)
 
 
 class Sound(object):
@@ -207,33 +168,41 @@ class Sound(object):
 
     @classmethod
     def from_(cls, sound):
+        """
+        Construct sound object from another sound object
+        """
         if isinstance(sound, tuple) and len(sound) == 2:  # then it's a (wf, sr) tuple
             return cls(sound[0], sound[1])
         elif isinstance(sound, str) and os.path.isfile(sound):
             return cls.from_file(sound)
         elif isinstance(sound, dict):
-            if 'wf' in sound and 'sr' in sound:
-                return cls(sound['wf'], sound['sr'])
+            if "wf" in sound and "sr" in sound:
+                return cls(sound["wf"], sound["sr"])
             else:
                 return cls.from_sref(sound)
-        elif hasattr(sound, 'wf') and hasattr(sound, 'sr'):
+        elif hasattr(sound, "wf") and hasattr(sound, "sr"):
             return cls(sound.wf, sound.sr)
         else:
             raise TypeError("Couldn't figure out how that format represents sound")
 
     @classmethod
     def silence(cls, seconds=0.0, sr=default_sr, wf_type=default_wf_type):
+        """
+        Construct silent sound object with length seconds
+
+        >>> assert sum(sum(Sound.silence(seconds = 1).melspectr_matrix())) == 0.0  # doctest: +SKIP
+        """
         return cls(sr=sr, wf=zeros(int(round(seconds * sr)), wf_type))
 
     def save_to_wav(self, filepath=None, samplerate=None, **kwargs):
-        subtype = kwargs.get('subtype', subtype_of_wf(self.wf))
+        subtype = kwargs.get("subtype", subtype_of_wf(self.wf))
         samplerate = samplerate or self.sr
         if isinstance(filepath, int):
             rand_range = filepath
-            template = 'sound_save_{:0' + str(int(ceil(log10(rand_range)))) + '.0}.wav'
+            template = "sound_save_{:0" + str(int(ceil(log10(rand_range)))) + ".0}.wav"
             filepath = template.format(randint(0, rand_range))
         else:
-            filepath = filepath or 'sound_save.wav'
+            filepath = filepath or "sound_save.wav"
         sf.write(filepath, self.wf, samplerate=samplerate, subtype=subtype, **kwargs)
 
     ####################################################################################################################
@@ -249,18 +218,20 @@ class Sound(object):
 
     def crop_with_seconds(self, first_second, last_second):
         return self.crop_with_idx(
-            int(round(first_second * self.sr)), int(round(last_second * self.sr))
+            int(round(first_second * self.sr)),
+            int(round(last_second * self.sr)),
         )
 
     def melspectr_matrix(self, **mel_kwargs):
+        """
+        Returns a melspectrogram matrix to be used to display a melspectrogram
+        """
         mel_kwargs = dict(
-            {'n_fft': 2048, 'hop_length': 512, 'n_mels': 128}, **mel_kwargs
+            {"n_fft": 2048, "hop_length": 512, "n_mels": 128}, **mel_kwargs
         )
-        S = librosa.feature.melspectrogram(
-            array(self.wf).astype(float), sr=self.sr, **mel_kwargs
-        )
+        S = melspectrogram(array(self.wf).astype(float), sr=self.sr, **mel_kwargs)
         # Convert to log scale (dB). We'll use the peak power as reference.
-        return librosa.amplitude_to_db(S, ref=max)
+        return amplitude_to_db(S, ref=max)
 
     def __add__(self, append_sound):
         assert (
@@ -272,6 +243,9 @@ class Sound(object):
     # DISPLAY FUNCTIONS
 
     def hear(self, autoplay=False, **kwargs):
+        """
+        Display UI to play sound
+        """
         wf = array(ensure_mono(self.wf)).astype(float)
         wf[
             randint(len(wf))
@@ -284,34 +258,23 @@ class Sound(object):
 
     def display(self, autoplay=False, **kwargs):
         """
-
-        :param sound_plot: 'mel' (default) to plot melspectrogram, 'wf' to plot wave form, and None to plot nothing at all
-        :param kwargs:
-        :return:
+        Display a melspectrogram of sound and UI to play sound
         """
-        if WITH_LIBROSA:
-            self.melspectrogram(plot_it=True, **kwargs)
-        else:
-            self.plot_wf()
+        self.melspectrogram(plot_it=True, **kwargs)
 
         return self.hear(autoplay=autoplay)
 
-    if WITH_LIBROSA:
+    def melspectrogram(self, plot_it=False, **mel_kwargs):
+        """
+        Returns a melsepectrogram matrix and plots a melspectrogram if plot_it is True
+        """
+        mel_kwargs = dict(
+            {"n_fft": 2048, "hop_length": 512, "n_mels": 128}, **mel_kwargs
+        )
+        log_S = self.melspectr_matrix(**mel_kwargs)
+        if plot_it:
+            plot_melspectrogram(log_S, sr=self.sr, hop_length=mel_kwargs["hop_length"])
+        return log_S
 
-        def melspectrogram(self, plot_it=False, **mel_kwargs):
-            mel_kwargs = dict(
-                {'n_fft': 2048, 'hop_length': 512, 'n_mels': 128}, **mel_kwargs
-            )
-            log_S = self.melspectr_matrix(**mel_kwargs)
-            if plot_it:
-                plot_melspectrogram(
-                    log_S, sr=self.sr, hop_length=mel_kwargs['hop_length']
-                )
-            return log_S
-
-    else:
-
-        def melspectrogram(self, plot_it=False, **mel_kwargs):
-            if plot_it:
-                plt.figure(figsize=(16, 5))
-                plt.plot(self.wf)
+    def _repr_html_(self):
+        return self.display()
