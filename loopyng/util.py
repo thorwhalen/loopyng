@@ -4,7 +4,7 @@ A few general utils
 
 from warnings import warn
 from inspect import getmodule
-from typing import Iterable
+from collections.abc import Iterable
 
 
 def simple_chunker(a: Iterable, chk_size: int):

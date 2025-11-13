@@ -69,7 +69,7 @@ def ums_to_01_array(ums, n_ums_bits):
     return array([int(x == "1") for x in ums_bits_str_format.format(ums)])
 
 
-class BinarySound(object):
+class BinarySound:
     def __init__(
         self,
         redundancy,
@@ -125,12 +125,12 @@ class BinarySound(object):
                 header_pattern = array([1, 0] * int(ceil(nbits / 2)))[:nbits]
             else:
                 raise ValueError(
-                    "header_pattern not recognized: {}".format(header_pattern)
+                    f"header_pattern not recognized: {header_pattern}"
                 )
         else:
             assert (
                 len(header_pattern) == nbits
-            ), "header_pattern must have nbits={}".format(nbits)
+            ), f"header_pattern must have nbits={nbits}"
             assert set(unique(header_pattern).astype(int)) == {
                 0,
                 1,
@@ -259,7 +259,7 @@ def slow_mask(arr, msk):
     return arr_msk_dist
 
 
-class WfGen(object):
+class WfGen:
     """
     >>> wfgen = WfGen(sr=44100, buf_size_frm=2048, amplitude=0.5)
     >>> lookup = wfgen.mk_lookup_table(freq=4400)
@@ -321,7 +321,7 @@ class WfGen(object):
 
 class TimeSound(WfGen):
     def __init__(self, sr=DFLT_SR, buf_size_frm=2048, amplitude=0.5, n_ums_bits=30):
-        super(TimeSound, self).__init__(
+        super().__init__(
             sr=sr, buf_size_frm=buf_size_frm, amplitude=amplitude
         )
         self.n_ums_bits = n_ums_bits

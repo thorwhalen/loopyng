@@ -68,7 +68,7 @@ def plot_melspectrogram(spect_mat, sr=default_sr, hop_length=512, name=None):
     specshow(spect_mat, sr=sr, hop_length=hop_length, x_axis="time", y_axis="mel")
     # Put a descriptive title on the plot
     if name is not None:
-        plt.title('mel power spectrogram of "{}"'.format(name))
+        plt.title(f'mel power spectrogram of "{name}"')
     else:
         plt.title("mel power spectrogram")
     # draw a color bar
@@ -100,7 +100,7 @@ def wf_and_sr(*args, **kwargs):
         )
 
 
-class Sound(object):
+class Sound:
     def __init__(self, wf=None, sr=default_sr, wf_type=default_wf_type):
         if wf is None:
             wf = array([], dtype=wf_type)

@@ -5,7 +5,7 @@ Generating Signals
 import numpy as np
 import random
 from itertools import chain
-from typing import Iterable
+from collections.abc import Iterable
 import pandas as pd
 
 DFLT_WORD_LENGTH = 30

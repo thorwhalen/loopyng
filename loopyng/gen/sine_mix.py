@@ -63,7 +63,8 @@ def freq_based_stationary_wf(
 #################################################################################
 # Soft marking everything below for deprecation
 import random
-from typing import Callable, Union, Tuple, Optional, Iterable
+from typing import Union, Tuple, Optional
+from collections.abc import Callable, Iterable
 from functools import partial
 from dataclasses import dataclass
 from numbers import Number
@@ -119,7 +120,7 @@ class MinMaxRandDict:
       'pressure': 449.5124385844328}]
     """
 
-    iid_seed_gen: Union[dict, Tuple[Tuple[str, MinMaxRand]]] = (
+    iid_seed_gen: dict | tuple[tuple[str, MinMaxRand]] = (
         ("rpm", MinMaxRand(100, 1000)),
         ("temperature", MinMaxRand(10, 25)),
         ("pressure", MinMaxRand(50, 500)),
@@ -185,7 +186,7 @@ def asis(x):
 # TODO: Replicate in slink
 @dataclass
 class NumAnnotsAndWaveformChunks:
-    seeds: Union[dict, Tuple[Tuple[str, MinMaxRand]]] = (
+    seeds: dict | tuple[tuple[str, MinMaxRand]] = (
         ("rpm", MinMaxRand(100, 1000)),
         ("temperature", MinMaxRand(10, 25)),
         ("pressure", MinMaxRand(50, 500)),

@@ -8,7 +8,8 @@ square tones, and annotated waveforms with different characteristics.
 import numpy as np
 import random
 import itertools
-from typing import Mapping, Callable, Sequence, Any, Optional, Iterable, TypeVar
+from typing import Any, Optional, TypeVar
+from collections.abc import Mapping, Callable, Sequence, Iterable
 from collections import defaultdict
 
 DFLT_SR = 44100
@@ -120,7 +121,7 @@ tag_to_wf_gen_func = {
 tag_to_wf_gen_func_items = tuple(tag_to_wf_gen_func.items())
 
 
-class AnnotatedWaveform(object):
+class AnnotatedWaveform:
     """
     Creates a waveform with chunks corresponding to the tags in tag_to_wf_gen_func.
     >>> np.random.seed(1)
@@ -194,7 +195,7 @@ Tag = TypeVar("Tag")  # TODO: Use generic for better typing
 
 def tag_wf_gen(
     tag_wfgen_map: Mapping[Tag, Callable[..., Sequence]] = tag_to_wf_gen_func_items,
-    tag_sequence: Optional[Iterable[Tag]] = None,
+    tag_sequence: Iterable[Tag] | None = None,
 ):
     """Generate tagged waveforms -- i.e. ``(tag, wf)`` pairs.
 

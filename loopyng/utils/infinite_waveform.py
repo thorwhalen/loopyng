@@ -9,7 +9,7 @@ import random
 import numpy as np
 
 
-class InfiniteWaveform(object):
+class InfiniteWaveform:
     """
     A tiny little class emulating an infinite waveform with a given spectrum.
     Note that if choosing to add noise to the waveform, the generator will be considerably slower

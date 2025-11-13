@@ -174,7 +174,7 @@ def __mesh_coords(ax_type, coords, n, **kwargs):
     }
 
     if ax_type not in coord_map:
-        raise Exception("Unknown axis type: {}".format(ax_type))
+        raise Exception(f"Unknown axis type: {ax_type}")
     return coord_map[ax_type](n, **kwargs)
 
 
@@ -305,7 +305,7 @@ def note_to_midi(note, round_midi=True):
         note,
     )
     if not match:
-        raise Exception("Improper note format: {:s}".format(note))
+        raise Exception(f"Improper note format: {note:s}")
 
     pitch = match.group("note").upper()
     offset = np.sum([acc_map[o] for o in match.group("accidental")])
@@ -460,7 +460,7 @@ class TimeFormatter(Formatter):
     def __init__(self, lag=False, unit=None):
 
         if unit not in ["s", "ms", None]:
-            raise Exception("Unknown time unit: {}".format(unit))
+            raise Exception(f"Unknown time unit: {unit}")
 
         self.unit = unit
         self.lag = lag
@@ -484,9 +484,9 @@ class TimeFormatter(Formatter):
             sign = ""
 
         if self.unit == "s":
-            s = "{:.3g}".format(value)
+            s = f"{value:.3g}"
         elif self.unit == "ms":
-            s = "{:.3g}".format(value * 1000)
+            s = f"{value * 1000:.3g}"
         else:
             if vmax - vmin > 3600:
                 # Hours viz
@@ -497,15 +497,15 @@ class TimeFormatter(Formatter):
                 )
             elif vmax - vmin > 60:
                 # Minutes viz
-                s = "{:d}:{:02d}".format(int(value / 60.0), int(np.mod(value, 60)))
+                s = f"{int(value / 60.0):d}:{int(np.mod(value, 60)):02d}"
             elif vmax - vmin >= 1:
                 # Seconds viz
-                s = "{:.2g}".format(value)
+                s = f"{value:.2g}"
             else:
                 # Milliseconds viz
-                s = "{:.3f}".format(value)
+                s = f"{value:.3f}"
 
-        return "{:s}{:s}".format(sign, s)
+        return f"{sign:s}{s:s}"
 
 
 def __same_axes(x_axis, y_axis, xlim, ylim):
@@ -671,7 +671,7 @@ def get_window(window, Nx, fftbins=True):
 
         raise Exception("Window size mismatch: " "{:d} != {:d}".format(len(window), Nx))
     else:
-        raise Exception("Invalid window specification: {}".format(window))
+        raise Exception(f"Invalid window specification: {window}")
 
 
 def pad_center(data, size, axis=-1, **kwargs):
@@ -735,7 +735,7 @@ def frame(x, frame_length, hop_length, axis=-1):
         )
 
     if hop_length < 1:
-        raise Exception("Invalid hop_length: {:d}".format(hop_length))
+        raise Exception(f"Invalid hop_length: {hop_length:d}")
 
     if axis == -1 and not x.flags["F_CONTIGUOUS"]:
         warnings.warn(
@@ -764,7 +764,7 @@ def frame(x, frame_length, hop_length, axis=-1):
         strides = [hop_length * new_stride] + list(strides)
 
     else:
-        raise Exception("Frame axis={} must be either 0 or -1".format(axis))
+        raise Exception(f"Frame axis={axis} must be either 0 or -1")
 
     return as_strided(x, shape=shape, strides=strides)
 
@@ -937,7 +937,7 @@ def normalize(S, norm=np.inf, axis=0, threshold=None, fill=None):
         raise Exception("threshold={} must be strictly " "positive".format(threshold))
 
     if fill not in [None, False, True]:
-        raise Exception("fill={} must be None or boolean".format(fill))
+        raise Exception(f"fill={fill} must be None or boolean")
 
     if not np.all(np.isfinite(S)):
         raise Exception("Input must be finite")
@@ -972,7 +972,7 @@ def normalize(S, norm=np.inf, axis=0, threshold=None, fill=None):
         return S
 
     else:
-        raise Exception("Unsupported norm: {}".format(repr(norm)))
+        raise Exception(f"Unsupported norm: {repr(norm)}")
 
     # indices where norm is below the threshold
     small_idx = length < threshold
@@ -1212,7 +1212,7 @@ def sync(data, idx, aggregate=None, pad=True, axis=-1):
     elif np.all([np.issubdtype(type(_), np.integer) for _ in idx]):
         slices = index_to_slice(np.asarray(idx), 0, shape[axis], pad=pad)
     else:
-        raise Exception("Invalid index set: {}".format(idx))
+        raise Exception(f"Invalid index set: {idx}")
 
     agg_shape = list(shape)
     agg_shape[axis] = len(slices)
