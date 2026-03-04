@@ -203,7 +203,15 @@ class Sound:
             filepath = template.format(randint(0, rand_range))
         else:
             filepath = filepath or "sound_save.wav"
-        sf.write(filepath, self.wf, samplerate=samplerate, subtype=subtype, **kwargs)
+
+        # Normalize int16 data to float32 for proper saving
+        wf_to_save = self.wf
+        if self.wf.dtype in (int16, 'int16'):
+            wf_to_save = self.wf.astype('float32') / 32768.0
+            if 'subtype' not in kwargs:
+                subtype = 'FLOAT'
+
+        sf.write(filepath, wf_to_save, samplerate=samplerate, subtype=subtype, **kwargs)
 
     ####################################################################################################################
     # TRANSFORMATIONS
