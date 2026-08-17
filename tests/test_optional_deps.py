@@ -186,6 +186,48 @@ def test_placeholder_distinguishes_informational_from_protocol_dunders():
             getattr(missing, protocol_dunder)
 
 
+def test_missing_attribute_of_a_present_module_is_not_reported_as_missing():
+    """An "installed but renamed" dep must not be reported as "not installed".
+
+    ``optional_from`` used to catch AttributeError alongside ImportError, so a
+    dependency that was installed but had dropped an attribute -- exactly what
+    matplotlib 3.11 did to ``matplotlib.cm.get_cmap`` -- was reported as not
+    installed. That message sends the user to pip, pip reports success, and they
+    are left where they started. The two failures have opposite remedies and must
+    read differently.
+    """
+    from loopyng._optional import optional_from
+
+    renamed = optional_from(
+        "numpy", "no_such_numpy_attribute", extra="viz", used_by="a test"
+    )
+
+    with pytest.raises(ImportError) as excinfo:
+        renamed()
+    message = str(excinfo.value)
+
+    assert "not installed" not in message
+    assert "pip install" not in message
+    assert "no_such_numpy_attribute" in message
+    assert "numpy" in message
+
+
+def test_a_genuinely_missing_module_still_names_the_extra():
+    """The other half of the same branch: absent module keeps the pip message."""
+    from loopyng._optional import optional_from
+
+    absent = optional_from(
+        "no_such_module_at_all", "anything", extra="viz", used_by="a test"
+    )
+
+    with pytest.raises(ImportError) as excinfo:
+        absent()
+    message = str(excinfo.value)
+
+    assert "is not installed" in message
+    assert 'pip install "loopyng[viz]"' in message
+
+
 def test_dsp_half_of_librosa_utils_works_without_matplotlib(bare_install):
     """melspectrogram/amplitude_to_db are numpy+scipy -- viz must not gate them."""
     import numpy as np

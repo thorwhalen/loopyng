@@ -54,13 +54,18 @@ Documentation = "https://thorwhalen.github.io/loopyng"
 [project.optional-dependencies]
 # Plotting waveforms and spectrograms: loopyng.utils.plotting,
 # loopyng.utils.librosa_utils, and the display methods of loopyng.sound.
+#
+# matplotlib >= 3.6 is a real floor, not a guess: the vendored librosa code
+# resolves colormaps through the `matplotlib.colormaps` registry (3.5+) and
+# `Colormap.resampled` (3.6+), because the `matplotlib.cm.get_cmap` it was
+# originally written against was removed in matplotlib 3.11.
 viz = [
-    "matplotlib",
+    "matplotlib>=3.6",
 ]
 # In-notebook audio playback (the IPython.display.Audio widget).
 notebook = [
     "IPython",
-    "matplotlib",
+    "matplotlib>=3.6",
 ]
 # DataFrame output and feature scaling: signal_generators.session_to_df,
 # gen.voiced_time.Voicer.voices_df, examples.annotated_sounds.
@@ -70,7 +75,7 @@ data = [
 ]
 # Everything a user could want, in one install.
 full = [
-    "matplotlib",
+    "matplotlib>=3.6",
     "IPython",
     "pandas",
     "scikit-learn",
@@ -80,7 +85,7 @@ dev = [
     "pytest-cov>=4.0",
     "ruff>=0.1.0",
     # The CI doctest sweep imports every module, so dev pulls in every extra.
-    "matplotlib",
+    "matplotlib>=3.6",
     "IPython",
     "pandas",
     "scikit-learn",

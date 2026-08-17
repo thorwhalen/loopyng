@@ -39,7 +39,6 @@ import re
 # viz extra, while anything that actually draws raises a clear ImportError.
 _MPL = dict(extra="viz", used_by="loopyng.utils.librosa_utils")
 matplotlib = optional_import("matplotlib", **_MPL)
-get_cmap = optional_from("matplotlib.cm", "get_cmap", **_MPL)
 Axes = optional_from("matplotlib.axes", "Axes", **_MPL)
 Formatter = optional_from("matplotlib.ticker", "Formatter", **_MPL)
 ScalarFormatter = optional_from("matplotlib.ticker", "ScalarFormatter", **_MPL)
@@ -49,6 +48,28 @@ SymmetricalLogLocator = optional_from(
 )
 
 MAX_MEM_BLOCK = 2**8 * 2**10
+
+
+def get_cmap(name, lut=None):
+    """Look up a named colormap, optionally resampled down to ``lut`` colors.
+
+    Stands in for ``matplotlib.cm.get_cmap``, which the vendored librosa code was
+    written against and which **no longer exists**: deprecated in matplotlib 3.7
+    and removed in 3.11. The supported spelling is the colormap registry
+    (``matplotlib.colormaps``, since 3.5) plus ``Colormap.resampled`` (since
+    3.6), which is why the viz extra floors matplotlib at 3.6.
+
+    Kept as a module-level function rather than an ``optional_from`` binding so
+    that a missing matplotlib is reported against ``matplotlib`` itself, which is
+    the package the user would actually install.
+
+    :param name: A registered colormap name, e.g. ``"magma"``
+    :param lut: If given, resample the colormap to this many colors
+    :return: A ``matplotlib.colors.Colormap``
+    """
+    colormap = matplotlib.colormaps[name]
+    return colormap.resampled(lut) if lut is not None else colormap
+
 
 # specshow
 

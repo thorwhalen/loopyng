@@ -16,8 +16,8 @@ The visualization, notebook-playback and tabular features live behind extras:
 | Install | Adds | Needed for |
 |---|---|---|
 | `pip install loopyng` | -- | all waveform generation |
-| `pip install "loopyng[viz]"` | matplotlib | `plot_wf`, `disp_wf`, `specshow` |
-| `pip install "loopyng[notebook]"` | IPython, matplotlib | the in-notebook `Audio` playback widget |
+| `pip install "loopyng[viz]"` | matplotlib >= 3.6 | `plot_wf`, `disp_wf`, `specshow` |
+| `pip install "loopyng[notebook]"` | IPython, matplotlib >= 3.6 | the in-notebook `Audio` playback widget |
 | `pip install "loopyng[data]"` | pandas, scikit-learn | `session_to_df`, `voices_df`, `examples.annotated_sounds` |
 | `pip install "loopyng[full]"` | all of the above | everything |
 
@@ -481,7 +481,7 @@ disp_wf(wf=wf, sr=sr)
 Sound(wf=wf).display()
 ```
 
-    /Users/owenlloyd/opt/anaconda3/envs/oto3/lib/python3.8/site-packages/matplotlib/axes/_axes.py:7723: RuntimeWarning: divide by zero encountered in log10
+    .../site-packages/matplotlib/axes/_axes.py:7723: RuntimeWarning: divide by zero encountered in log10
       Z = 10. * np.log10(spec)
 
 
