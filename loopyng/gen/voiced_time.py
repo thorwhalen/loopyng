@@ -9,6 +9,8 @@ from datetime import datetime as dt
 import time
 from contextlib import suppress
 
+from loopyng._optional import require
+
 with suppress(ModuleNotFoundError, ImportError):
     import pyttsx3
 
@@ -22,7 +24,7 @@ with suppress(ModuleNotFoundError, ImportError):
             rate=None,
             engine_kwargs=None,
             time_format=DFLT_TIME_FORMAT,
-            **kwargs
+            **kwargs,
         ):
             engine_kwargs = engine_kwargs or {}
             self.engine = pyttsx3.init(**engine_kwargs)  # object creation
@@ -52,7 +54,13 @@ with suppress(ModuleNotFoundError, ImportError):
 
         @property
         def voices_df(self):
-            import pandas as pd
+            # Optional: only this property is tabular. `require` raises an
+            # ImportError naming the extra rather than a bare ModuleNotFoundError.
+            pd = require(
+                "pandas",
+                extra="data",
+                used_by="loopyng.gen.voiced_time.Voicer.voices_df",
+            )
 
             df = pd.DataFrame(self.voices)
             df = df.set_index("name")

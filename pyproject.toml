@@ -6,7 +6,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "loopyng"
-version = "0.1.33"
+version = "0.2.0"
 description = "Generate synthetic signals for ML pipelines"
 readme = "README.md"
 requires-python = ">=3.10"
@@ -31,16 +31,16 @@ classifiers = [
     "Topic :: Multimedia :: Sound/Audio",
     "Topic :: Scientific/Engineering",
 ]
+
+# Core: generating signals needs numpy/scipy and the audio I/O + plumbing around
+# them. Plotting, notebook playback and the tabular/scaling stack are extras --
+# see [project.optional-dependencies] and loopyng/_optional.py.
 dependencies = [
     "argh",
-    "IPython",
-    "matplotlib",
     "numpy",
     "packaging",
-    "pandas",
     "scipy",
     "soundfile",
-    "scikit-learn",
     "i2",
     "slink",
     "more_itertools",
@@ -52,10 +52,38 @@ Repository = "https://github.com/thorwhalen/loopyng"
 Documentation = "https://thorwhalen.github.io/loopyng"
 
 [project.optional-dependencies]
+# Plotting waveforms and spectrograms: loopyng.utils.plotting,
+# loopyng.utils.librosa_utils, and the display methods of loopyng.sound.
+viz = [
+    "matplotlib",
+]
+# In-notebook audio playback (the IPython.display.Audio widget).
+notebook = [
+    "IPython",
+    "matplotlib",
+]
+# DataFrame output and feature scaling: signal_generators.session_to_df,
+# gen.voiced_time.Voicer.voices_df, examples.annotated_sounds.
+data = [
+    "pandas",
+    "scikit-learn",
+]
+# Everything a user could want, in one install.
+full = [
+    "matplotlib",
+    "IPython",
+    "pandas",
+    "scikit-learn",
+]
 dev = [
     "pytest>=7.0",
     "pytest-cov>=4.0",
     "ruff>=0.1.0",
+    # The CI doctest sweep imports every module, so dev pulls in every extra.
+    "matplotlib",
+    "IPython",
+    "pandas",
+    "scikit-learn",
 ]
 docs = [
     "sphinx>=6.0",

@@ -9,8 +9,16 @@ from numpy import array, max, log10, ceil, int16, hstack, zeros, argmin, ndim
 from numpy.random import randint
 import soundfile as sf
 import os
-import matplotlib.pylab as plt
-from IPython.display import Audio
+
+from loopyng._optional import optional_import, optional_from
+
+# Optional: only Sound's display/playback methods need these. Bound lazily so a
+# bare install can still create, transform and write Sound objects; calling a
+# method that plots or plays raises an ImportError naming the extra to install.
+plt = optional_import("matplotlib.pylab", extra="viz", used_by="loopyng.sound.audio")
+Audio = optional_from(
+    "IPython.display", "Audio", extra="notebook", used_by="loopyng.sound.audio"
+)
 
 from loopyng.utils.plotting import plot_wf
 from loopyng.utils.librosa_utils import specshow, melspectrogram, amplitude_to_db
@@ -206,10 +214,10 @@ class Sound:
 
         # Normalize int16 data to float32 for proper saving
         wf_to_save = self.wf
-        if self.wf.dtype in (int16, 'int16'):
-            wf_to_save = self.wf.astype('float32') / 32768.0
-            if 'subtype' not in kwargs:
-                subtype = 'FLOAT'
+        if self.wf.dtype in (int16, "int16"):
+            wf_to_save = self.wf.astype("float32") / 32768.0
+            if "subtype" not in kwargs:
+                subtype = "FLOAT"
 
         sf.write(filepath, wf_to_save, samplerate=samplerate, subtype=subtype, **kwargs)
 
@@ -242,9 +250,9 @@ class Sound:
         return amplitude_to_db(S, ref=max)
 
     def __add__(self, append_sound):
-        assert (
-            self.sr == append_sound.sr
-        ), "Sounds need to have the same sample rate to be appended"
+        assert self.sr == append_sound.sr, (
+            "Sounds need to have the same sample rate to be appended"
+        )
         return Sound(sr=self.sr, wf=hstack(self.wf, append_sound.wf))
 
     ####################################################################################################################
@@ -255,9 +263,9 @@ class Sound:
         Display UI to play sound
         """
         wf = array(ensure_mono(self.wf)).astype(float)
-        wf[
-            randint(len(wf))
-        ] *= 1.001  # hack to avoid having exactly the same sound twice (creates an Audio bug)
+        wf[randint(len(wf))] *= (
+            1.001  # hack to avoid having exactly the same sound twice (creates an Audio bug)
+        )
         return Audio(data=wf, rate=self.sr, autoplay=autoplay, **kwargs)
 
     def plot_wf(*args, **kwargs):

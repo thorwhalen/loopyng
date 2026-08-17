@@ -6,7 +6,14 @@ import numpy as np
 import random
 from itertools import chain
 from collections.abc import Iterable
-import pandas as pd
+
+from loopyng._optional import optional_import
+
+# Optional: only session_to_df builds a DataFrame; every other generator here is
+# pure numpy, so pandas is bound lazily rather than required to import this module.
+pd = optional_import(
+    "pandas", extra="data", used_by="loopyng.gen.signal_generators.session_to_df"
+)
 
 DFLT_WORD_LENGTH = 30
 DFLT_ALPHABET = "abcde"
