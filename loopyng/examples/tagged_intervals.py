@@ -1,3 +1,10 @@
+"""Generate tagged intervals and render them as waveforms or channel data.
+
+An end-to-end example: a tag model drives a stream of tagged time intervals,
+each interval is realized as a waveform chunk, and the result is exported as
+multi-channel JSON suitable for a plotting or annotation front-end.
+"""
+
 import random
 from typing import Union
 from collections.abc import Callable

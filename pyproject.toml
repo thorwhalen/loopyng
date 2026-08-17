@@ -1,0 +1,226 @@
+[build-system]
+requires = [
+    "hatchling",
+]
+build-backend = "hatchling.build"
+
+[project]
+name = "loopyng"
+version = "0.1.33"
+description = "Generate synthetic signals for ML pipelines"
+readme = "README.md"
+requires-python = ">=3.10"
+license = "MIT"
+keywords = [
+    "data",
+    "signal processing",
+    "audio",
+    "waveform",
+    "synthetic-data",
+]
+authors = [
+    { name = "Thor Whalen" },
+]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Science/Research",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Multimedia :: Sound/Audio",
+    "Topic :: Scientific/Engineering",
+]
+dependencies = [
+    "argh",
+    "IPython",
+    "matplotlib",
+    "numpy",
+    "packaging",
+    "pandas",
+    "scipy",
+    "soundfile",
+    "scikit-learn",
+    "i2",
+    "slink",
+    "more_itertools",
+]
+
+[project.urls]
+Homepage = "https://github.com/thorwhalen/loopyng"
+Repository = "https://github.com/thorwhalen/loopyng"
+Documentation = "https://thorwhalen.github.io/loopyng"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0",
+    "pytest-cov>=4.0",
+    "ruff>=0.1.0",
+]
+docs = [
+    "sphinx>=6.0",
+    "sphinx-rtd-theme>=1.0",
+]
+
+[tool.hatch.build.targets.wheel]
+packages = [
+    "loopyng",
+]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+exclude = [
+    "**/*.ipynb",
+    ".git",
+    ".venv",
+    "build",
+    "dist",
+    "tests",
+    "examples",
+    "scrap",
+]
+
+[tool.ruff.lint]
+select = [
+    "D100",
+]
+ignore = [
+    "D203",
+    "E501",
+    "B905",
+]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.lint.per-file-ignores]
+"**/tests/*" = [
+    "D",
+]
+"**/examples/*" = [
+    "D",
+]
+"**/scrap/*" = [
+    "D",
+]
+
+[tool.pytest.ini_options]
+minversion = "6.0"
+testpaths = [
+    "loopyng",
+    "tests",
+]
+doctest_optionflags = [
+    "NORMALIZE_WHITESPACE",
+    "ELLIPSIS",
+]
+
+# ---------------------------------------------------------------------------
+# System (non-Python) dependencies.
+#
+# Carried over from the pre-migration workflow, which installed these inline in
+# the Validation job only. Declaring them here lets the install-system-deps
+# action supply them to every job that asks for them -- the Validation/Pages
+# environment asymmetry is a known cause of a green test job sitting next to a
+# red docs job (the docs job also runs `pip install -e .`).
+# ---------------------------------------------------------------------------
+
+[tool.wads.ops.libsndfile]
+description = "libsndfile - the native audio I/O library that soundfile binds to"
+url = "https://libsndfile.github.io/libsndfile/"
+check.linux = "ldconfig -p | grep -q libsndfile"
+check.macos = "brew list libsndfile"
+check.windows = "python -c \"import soundfile\""
+install.linux = [
+    "sudo apt-get -qq update",
+    "sudo apt-get install -y libsndfile1 libsndfile1-dev",
+]
+install.macos = "brew install libsndfile"
+install.windows = "echo soundfile ships a bundled libsndfile in its Windows wheels; no system install needed"
+
+[tool.wads.ops.gcc]
+description = "GCC - C toolchain, needed when a dependency has no wheel and builds from source"
+url = "https://gcc.gnu.org/"
+check.linux = "which gcc"
+check.macos = "which clang"
+check.windows = "where cl || where gcc"
+install.linux = [
+    "sudo apt-get -qq update",
+    "sudo apt-get install -y gcc",
+]
+install.macos = "echo clang ships with the macOS runner Command Line Tools; no install needed"
+install.windows = "echo MSVC build tools ship with the Windows runner; no install needed"
+
+[tool.wads.ci]
+project_name = ""
+
+[tool.wads.ci.install]
+extras = "dev"
+
+[tool.wads.ci.commands]
+pre_test = []
+test = []
+post_test = []
+lint = []
+format = []
+
+[tool.wads.ci.env]
+required_envvars = []
+test_envvars = []
+extra_envvars = []
+
+[tool.wads.ci.env.defaults]
+
+[tool.wads.ci.quality.ruff]
+enabled = true
+
+[tool.wads.ci.quality.black]
+enabled = false
+
+[tool.wads.ci.quality.mypy]
+enabled = false
+
+[tool.wads.ci.testing]
+python_versions = [
+    "3.10",
+    "3.12",
+]
+pytest_args = [
+    "-v",
+    "--tb=short",
+]
+coverage_enabled = true
+coverage_threshold = 0
+coverage_report_format = [
+    "term",
+    "xml",
+]
+exclude_paths = [
+    "loopyng/examples",
+    "loopyng/scrap",
+]
+test_on_windows = true
+
+[tool.wads.ci.metrics]
+enabled = true
+config_path = ".github/umpyre-config.yml"
+storage_branch = "code-metrics"
+python_version = "3.10"
+force_run = false
+
+[tool.wads.ci.build]
+sdist = true
+wheel = true
+
+[tool.wads.ci.publish]
+enabled = true
+
+[tool.wads.ci.docs]
+enabled = true
+builder = "epythet"
+ignore_paths = [
+    "tests/",
+    "scrap/",
+    "examples/",
+]
