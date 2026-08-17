@@ -1,0 +1,4 @@
+loopyng.sound.audio_librosa
+===========================
+.. automodule:: loopyng.sound.audio_librosa
+   :members:

@@ -1,0 +1,4 @@
+loopyng.examples.annotated_sounds
+=================================
+.. automodule:: loopyng.examples.annotated_sounds
+   :members:

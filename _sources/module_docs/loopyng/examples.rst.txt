@@ -1,0 +1,4 @@
+loopyng.examples
+================
+.. automodule:: loopyng.examples
+   :members:

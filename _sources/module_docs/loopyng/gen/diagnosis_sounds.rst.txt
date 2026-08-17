@@ -1,0 +1,4 @@
+loopyng.gen.diagnosis_sounds
+============================
+.. automodule:: loopyng.gen.diagnosis_sounds
+   :members:

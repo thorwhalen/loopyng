@@ -1,0 +1,4 @@
+loopyng.utils.infinite_waveform
+===============================
+.. automodule:: loopyng.utils.infinite_waveform
+   :members:

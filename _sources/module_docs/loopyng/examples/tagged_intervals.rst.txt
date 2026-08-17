@@ -1,0 +1,4 @@
+loopyng.examples.tagged_intervals
+=================================
+.. automodule:: loopyng.examples.tagged_intervals
+   :members:

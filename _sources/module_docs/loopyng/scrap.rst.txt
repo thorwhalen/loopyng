@@ -1,0 +1,4 @@
+loopyng.scrap
+=============
+.. automodule:: loopyng.scrap
+   :members:

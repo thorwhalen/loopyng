@@ -1,0 +1,263 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>loopyng._optional &mdash; loopyng 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="loopyng.examples" href="examples.html" />
+    <link rel="prev" title="loopyng" href="../loopyng.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            loopyng
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../loopyng.html">loopyng</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">loopyng._optional</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#loopyng._optional.MissingDependencyType"><code class="docutils literal notranslate"><span class="pre">MissingDependencyType</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loopyng._optional.optional_from"><code class="docutils literal notranslate"><span class="pre">optional_from()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loopyng._optional.optional_import"><code class="docutils literal notranslate"><span class="pre">optional_import()</span></code></a></li>
+<li class="toctree-l2"><a class="reference internal" href="#loopyng._optional.require"><code class="docutils literal notranslate"><span class="pre">require()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="examples.html">loopyng.examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/annotated_sounds.html">loopyng.examples.annotated_sounds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="examples/tagged_intervals.html">loopyng.examples.tagged_intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen.html">loopyng.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen/diagnosis_sounds.html">loopyng.gen.diagnosis_sounds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen/signal_generators.html">loopyng.gen.signal_generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen/simple.html">loopyng.gen.simple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen/sine_mix.html">loopyng.gen.sine_mix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen/util.html">loopyng.gen.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="gen/voiced_time.html">loopyng.gen.voiced_time</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lite_sample_sounds.html">loopyng.lite_sample_sounds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="scrap.html">loopyng.scrap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound.html">loopyng.sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound/audio.html">loopyng.sound.audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="sound/audio_librosa.html">loopyng.sound.audio_librosa</a></li>
+<li class="toctree-l1"><a class="reference internal" href="util.html">loopyng.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils.html">loopyng.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils/date_ticks.html">loopyng.utils.date_ticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils/infinite_waveform.html">loopyng.utils.infinite_waveform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils/librosa_utils.html">loopyng.utils.librosa_utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="utils/plotting.html">loopyng.utils.plotting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">loopyng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">loopyng._optional</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../../_sources/module_docs/loopyng/_optional.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="module-loopyng._optional">
+<span id="loopyng-optional"></span><h1>loopyng._optional<a class="headerlink" href="#module-loopyng._optional" title="Link to this heading"></a></h1>
+<p>Lazy, informative handling of loopyng’s optional dependencies.</p>
+<p>loopyng is a signal-<em>generation</em> library: its core – making waveforms out of
+numbers – needs only numpy and scipy. Plotting (matplotlib), notebook playback
+(IPython) and the tabular/scaling helpers (pandas, scikit-learn) serve a minority
+of the API, so they are optional extras rather than hard install requirements.</p>
+<p>That creates a problem this module exists to solve. If a module raises at
+<em>import</em> time when an extra is missing, <cite>import loopyng</cite> breaks on a bare
+install – the very install the extras were supposed to make possible. If the
+package instead swallows the ImportError, the symbol silently vanishes and the
+user gets an inscrutable AttributeError somewhere far from the cause.</p>
+<p>So: import the optional module if it is there, and otherwise bind a placeholder
+that imports fine and raises a clear, actionable ImportError the moment anyone
+actually <em>uses</em> it. The error names the missing module, what wanted it, and the
+exact pip command that fixes it.</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span> <span class="o">=</span> <span class="n">optional_import</span><span class="p">(</span><span class="s2">"no_such_plotting_lib"</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s2">"viz"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">plt</span><span class="o">.</span><span class="n">figure</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">  </span><span class="c">...</span>
+<span class="gr">ImportError</span>: <span class="n">no_such_plotting_lib is not installed...</span>
+</pre></div>
+</div>
+<p>The placeholder is a <em>class</em>, not an instance, so it can also stand in for a
+type used as a base class – <code class="docutils literal notranslate"><span class="pre">class</span> <span class="pre">TimeFormatter(Formatter)</span></code> still defines
+cleanly, and only fails when someone tries to instantiate it.</p>
+<p>One distinction this module is careful about: <em>absent</em> and <em>renamed</em> are not the
+same failure. <code class="docutils literal notranslate"><span class="pre">optional_from</span></code> can fail because the module is missing (an
+install problem) or because the module is right there but no longer exports the
+name (an API change – <code class="docutils literal notranslate"><span class="pre">matplotlib.cm.get_cmap</span></code> vanished in matplotlib 3.11).
+Folding the second into the first produces the worst error a library can emit:
+“install matplotlib” on a machine where matplotlib is installed. The two cases
+therefore carry different messages, and only the first one mentions pip.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="loopyng._optional.MissingDependencyType">
+<span class="property"><span class="k"><span class="pre">class</span></span><span class="w"> </span></span><span class="sig-prename descclassname"><span class="pre">loopyng._optional.</span></span><span class="sig-name descname"><span class="pre">MissingDependencyType</span></span><a class="reference internal" href="../../_modules/loopyng/_optional.html#MissingDependencyType"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#loopyng._optional.MissingDependencyType" title="Link to this definition"></a></dt>
+<dd><p>Metaclass whose classes raise a clear ImportError on any real use.</p>
+<p>Attribute access and instantiation both raise; protocol dunder lookups raise
+AttributeError instead, so ordinary introspection (<code class="docutils literal notranslate"><span class="pre">repr</span></code>, <code class="docutils literal notranslate"><span class="pre">copy</span></code>,
+<code class="docutils literal notranslate"><span class="pre">inspect</span></code>) keeps working rather than exploding with the wrong error type.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="loopyng._optional.optional_from">
+<span class="sig-prename descclassname"><span class="pre">loopyng._optional.</span></span><span class="sig-name descname"><span class="pre">optional_from</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">attribute</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">used_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/loopyng/_optional.html#optional_from"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#loopyng._optional.optional_from" title="Link to this definition"></a></dt>
+<dd><p>Like <code class="docutils literal notranslate"><span class="pre">from</span> <span class="pre">module_name</span> <span class="pre">import</span> <span class="pre">attribute</span></code>, tolerating a missing module.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module_name</strong> – Module to import from, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;IPython.display&quot;</span></code></p></li>
+<li><p><strong>attribute</strong> – Name to pull out of it, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;Audio&quot;</span></code></p></li>
+<li><p><strong>extra</strong> – The loopyng extra that provides it, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;notebook&quot;</span></code></p></li>
+<li><p><strong>used_by</strong> – What needs it, for the error message</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The attribute, or a placeholder raising ImportError when used</p>
+</dd>
+</dl>
+<p>The two ways this can fail are kept apart on purpose. A missing <em>module</em> is
+an install problem and gets the “install the extra” message. A module that
+imports fine but no longer has the attribute is an API/version problem, and
+saying “not installed” about a package the user demonstrably has installed
+sends them to pip for a fix pip cannot make:</p>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">array</span> <span class="o">=</span> <span class="n">optional_from</span><span class="p">(</span><span class="s2">"numpy"</span><span class="p">,</span> <span class="s2">"array"</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s2">"viz"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="go">[1, 2]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gone</span> <span class="o">=</span> <span class="n">optional_from</span><span class="p">(</span><span class="s2">"numpy"</span><span class="p">,</span> <span class="s2">"no_such_numpy_function"</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s2">"viz"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">gone</span><span class="p">()</span>
+<span class="gt">Traceback (most recent call last):</span>
+<span class="w">  </span><span class="c">...</span>
+<span class="gr">ImportError</span>: <span class="n">numpy is installed but has no attribute 'no_such_numpy_function'...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="loopyng._optional.optional_import">
+<span class="sig-prename descclassname"><span class="pre">loopyng._optional.</span></span><span class="sig-name descname"><span class="pre">optional_import</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">used_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/loopyng/_optional.html#optional_import"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#loopyng._optional.optional_import" title="Link to this definition"></a></dt>
+<dd><p>Import <code class="docutils literal notranslate"><span class="pre">module_name</span></code>, or return a placeholder that explains its absence.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module_name</strong> – Module to import, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;matplotlib.pylab&quot;</span></code></p></li>
+<li><p><strong>extra</strong> – The loopyng extra that provides it, e.g. <code class="docutils literal notranslate"><span class="pre">&quot;viz&quot;</span></code></p></li>
+<li><p><strong>used_by</strong> – What needs it, for the error message</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The module, or a placeholder raising ImportError when used</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">np</span> <span class="o">=</span> <span class="n">optional_import</span><span class="p">(</span><span class="s2">"numpy"</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s2">"viz"</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">])</span><span class="o">.</span><span class="n">tolist</span><span class="p">()</span>
+<span class="go">[1, 2]</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="loopyng._optional.require">
+<span class="sig-prename descclassname"><span class="pre">loopyng._optional.</span></span><span class="sig-name descname"><span class="pre">require</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">module_name</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="keyword-only-separator o"><abbr title="Keyword-only parameters separator (PEP 3102)"><span class="pre">*</span></abbr></span></em>, <em class="sig-param"><span class="n"><span class="pre">extra</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span></span></em>, <em class="sig-param"><span class="n"><span class="pre">used_by</span></span><span class="p"><span class="pre">:</span></span><span class="w"> </span><span class="n"><span class="pre">str</span><span class="w"> </span><span class="p"><span class="pre">|</span></span><span class="w"> </span><span class="pre">None</span></span><span class="w"> </span><span class="o"><span class="pre">=</span></span><span class="w"> </span><span class="default_value"><span class="pre">None</span></span></em><span class="sig-paren">)</span><a class="reference internal" href="../../_modules/loopyng/_optional.html#require"><span class="viewcode-link"><span class="pre">[source]</span></span></a><a class="headerlink" href="#loopyng._optional.require" title="Link to this definition"></a></dt>
+<dd><p>Import <code class="docutils literal notranslate"><span class="pre">module_name</span></code> now, raising the informative ImportError if absent.</p>
+<p>For call sites that need the dependency immediately – typically to resolve
+a default argument that cannot be evaluated at import time.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters<span class="colon">:</span></dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>module_name</strong> – Module to import</p></li>
+<li><p><strong>extra</strong> – The loopyng extra that provides it</p></li>
+<li><p><strong>used_by</strong> – What needs it, for the error message</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns<span class="colon">:</span></dt>
+<dd class="field-even"><p>The module</p>
+</dd>
+</dl>
+<div class="doctest highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">require</span><span class="p">(</span><span class="s2">"numpy"</span><span class="p">,</span> <span class="n">extra</span><span class="o">=</span><span class="s2">"viz"</span><span class="p">)</span><span class="o">.</span><span class="n">pi</span>
+<span class="go">3.14159...</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../loopyng.html" class="btn btn-neutral float-left" title="loopyng" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="examples.html" class="btn btn-neutral float-right" title="loopyng.examples" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

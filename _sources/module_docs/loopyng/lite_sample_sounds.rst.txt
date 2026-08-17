@@ -1,0 +1,4 @@
+loopyng.lite_sample_sounds
+==========================
+.. automodule:: loopyng.lite_sample_sounds
+   :members:

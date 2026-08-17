@@ -1,0 +1,346 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../../">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>loopyng._optional &mdash; loopyng 0.2.0 documentation</title>
+      <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../../_static/css/theme.css?v=9edc463e" />
+      <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+      <link rel="stylesheet" type="text/css" href="../../_static/graphviz.css?v=4ae1632d" />
+
+  
+      <script src="../../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../../_static/documentation_options.js?v=938c9ccc"></script>
+      <script src="../../_static/doctools.js?v=fd6eb6e6"></script>
+      <script src="../../_static/sphinx_highlight.js?v=6ffebe34"></script>
+      <script src="../../_static/toggleprompt.js?v=d7ede5d2"></script>
+      <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+      <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            loopyng
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng.html">loopyng</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/_optional.html">loopyng._optional</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/examples.html">loopyng.examples</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/examples/annotated_sounds.html">loopyng.examples.annotated_sounds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/examples/tagged_intervals.html">loopyng.examples.tagged_intervals</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/gen.html">loopyng.gen</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/gen/diagnosis_sounds.html">loopyng.gen.diagnosis_sounds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/gen/signal_generators.html">loopyng.gen.signal_generators</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/gen/simple.html">loopyng.gen.simple</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/gen/sine_mix.html">loopyng.gen.sine_mix</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/gen/util.html">loopyng.gen.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/gen/voiced_time.html">loopyng.gen.voiced_time</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/lite_sample_sounds.html">loopyng.lite_sample_sounds</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/scrap.html">loopyng.scrap</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/sound.html">loopyng.sound</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/sound/audio.html">loopyng.sound.audio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/sound/audio_librosa.html">loopyng.sound.audio_librosa</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/util.html">loopyng.util</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/utils.html">loopyng.utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/utils/date_ticks.html">loopyng.utils.date_ticks</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/utils/infinite_waveform.html">loopyng.utils.infinite_waveform</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/utils/librosa_utils.html">loopyng.utils.librosa_utils</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../../module_docs/loopyng/utils/plotting.html">loopyng.utils.plotting</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">loopyng</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="../index.html">Module code</a></li>
+      <li class="breadcrumb-item active">loopyng._optional</li>
+      <li class="wy-breadcrumbs-aside">
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <h1>Source code for loopyng._optional</h1><div class="highlight"><pre>
+<span></span><span class="sd">"""Lazy, informative handling of loopyng's optional dependencies.</span>
+
+<span class="sd">loopyng is a signal-*generation* library: its core -- making waveforms out of</span>
+<span class="sd">numbers -- needs only numpy and scipy. Plotting (matplotlib), notebook playback</span>
+<span class="sd">(IPython) and the tabular/scaling helpers (pandas, scikit-learn) serve a minority</span>
+<span class="sd">of the API, so they are optional extras rather than hard install requirements.</span>
+
+<span class="sd">That creates a problem this module exists to solve. If a module raises at</span>
+<span class="sd">*import* time when an extra is missing, `import loopyng` breaks on a bare</span>
+<span class="sd">install -- the very install the extras were supposed to make possible. If the</span>
+<span class="sd">package instead swallows the ImportError, the symbol silently vanishes and the</span>
+<span class="sd">user gets an inscrutable AttributeError somewhere far from the cause.</span>
+
+<span class="sd">So: import the optional module if it is there, and otherwise bind a placeholder</span>
+<span class="sd">that imports fine and raises a clear, actionable ImportError the moment anyone</span>
+<span class="sd">actually *uses* it. The error names the missing module, what wanted it, and the</span>
+<span class="sd">exact pip command that fixes it.</span>
+
+<span class="sd">    &gt;&gt;&gt; plt = optional_import("no_such_plotting_lib", extra="viz")</span>
+<span class="sd">    &gt;&gt;&gt; plt.figure()                                    # doctest: +ELLIPSIS</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">      ...</span>
+<span class="sd">    ImportError: no_such_plotting_lib is not installed...</span>
+
+<span class="sd">The placeholder is a *class*, not an instance, so it can also stand in for a</span>
+<span class="sd">type used as a base class -- ``class TimeFormatter(Formatter)`` still defines</span>
+<span class="sd">cleanly, and only fails when someone tries to instantiate it.</span>
+
+<span class="sd">One distinction this module is careful about: *absent* and *renamed* are not the</span>
+<span class="sd">same failure. ``optional_from`` can fail because the module is missing (an</span>
+<span class="sd">install problem) or because the module is right there but no longer exports the</span>
+<span class="sd">name (an API change -- ``matplotlib.cm.get_cmap`` vanished in matplotlib 3.11).</span>
+<span class="sd">Folding the second into the first produces the worst error a library can emit:</span>
+<span class="sd">"install matplotlib" on a machine where matplotlib is installed. The two cases</span>
+<span class="sd">therefore carry different messages, and only the first one mentions pip.</span>
+<span class="sd">"""</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">importlib</span>
+
+<span class="n">PACKAGE_NAME</span> <span class="o">=</span> <span class="s2">"loopyng"</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_install_message</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">used_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Build the "you need to install X" message shown to the user."""</span>
+    <span class="n">needed_by</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">", needed by </span><span class="si">{</span><span class="n">used_by</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">used_by</span> <span class="k">else</span> <span class="s2">""</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">target</span><span class="si">}</span><span class="s2"> is not installed</span><span class="si">{</span><span class="n">needed_by</span><span class="si">}</span><span class="s2">. It is an optional dependency of "</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">PACKAGE_NAME</span><span class="si">}</span><span class="s2">. Install it with:  "</span>
+        <span class="sa">f</span><span class="s1">'pip install "</span><span class="si">{</span><span class="n">PACKAGE_NAME</span><span class="si">}</span><span class="s1">[</span><span class="si">{</span><span class="n">extra</span><span class="si">}</span><span class="s1">]"'</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_api_mismatch_message</span><span class="p">(</span><span class="n">module_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">used_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Build the message for a dependency that IS installed but lost the name.</span>
+
+<span class="sd">    A missing *module* and a missing *attribute of a present module* are</span>
+<span class="sd">    different failures with opposite remedies, and telling a user to install</span>
+<span class="sd">    something they already have is worse than saying nothing: it sends them to</span>
+<span class="sd">    pip, which reports success, and leaves them where they started. So this case</span>
+<span class="sd">    gets its own wording -- it never says "not installed".</span>
+<span class="sd">    """</span>
+    <span class="n">needed_by</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">", needed by </span><span class="si">{</span><span class="n">used_by</span><span class="si">}</span><span class="s2">"</span> <span class="k">if</span> <span class="n">used_by</span> <span class="k">else</span> <span class="s2">""</span>
+    <span class="n">installed_version</span> <span class="o">=</span> <span class="n">_version_of</span><span class="p">(</span><span class="n">module_name</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">"."</span><span class="p">)[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">return</span> <span class="p">(</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2"> is installed but has no attribute </span><span class="si">{</span><span class="n">attribute</span><span class="si">!r}</span><span class="s2">"</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">needed_by</span><span class="si">}</span><span class="s2">. This is an API change or a version mismatch"</span>
+        <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">installed_version</span><span class="si">}</span><span class="s2">, not a missing install -- reinstalling or "</span>
+        <span class="sa">f</span><span class="s2">"installing a </span><span class="si">{</span><span class="n">PACKAGE_NAME</span><span class="si">}</span><span class="s2"> extra will not fix it. Please report it at "</span>
+        <span class="sa">f</span><span class="s2">"https://github.com/thorwhalen/</span><span class="si">{</span><span class="n">PACKAGE_NAME</span><span class="si">}</span><span class="s2">/issues"</span>
+    <span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_version_of</span><span class="p">(</span><span class="n">distribution_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="nb">str</span><span class="p">:</span>
+<span class="w">    </span><span class="sd">"""Return " (found &lt;name&gt; X.Y)" if the version can be read, else ""."""</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">distribution_name</span><span class="p">)</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="s2">"__version__"</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>  <span class="c1"># pragma: no cover - the caller just imported it</span>
+        <span class="n">version</span> <span class="o">=</span> <span class="kc">None</span>
+    <span class="k">return</span> <span class="sa">f</span><span class="s2">" (found </span><span class="si">{</span><span class="n">distribution_name</span><span class="si">}</span><span class="s2"> </span><span class="si">{</span><span class="n">version</span><span class="si">}</span><span class="s2">)"</span> <span class="k">if</span> <span class="n">version</span> <span class="k">else</span> <span class="s2">""</span>
+
+
+<span class="c1"># Dunders a caller reads for information about the module rather than as part of</span>
+<span class="c1"># a language protocol. These deserve the informative ImportError; the protocol</span>
+<span class="c1"># dunders (__copy__, __wrapped__, __iter__, ...) must stay AttributeError so that</span>
+<span class="c1"># copy/pickle/inspect keep working instead of exploding with the wrong type.</span>
+<span class="n">INFORMATIONAL_DUNDERS</span> <span class="o">=</span> <span class="p">(</span><span class="s2">"__version__"</span><span class="p">,</span> <span class="s2">"__file__"</span><span class="p">,</span> <span class="s2">"__path__"</span><span class="p">,</span> <span class="s2">"__all__"</span><span class="p">)</span>
+
+
+<div class="viewcode-block" id="MissingDependencyType">
+<a class="viewcode-back" href="../../module_docs/loopyng/_optional.html#loopyng._optional.MissingDependencyType">[docs]</a>
+<span class="k">class</span><span class="w"> </span><span class="nc">MissingDependencyType</span><span class="p">(</span><span class="nb">type</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Metaclass whose classes raise a clear ImportError on any real use.</span>
+
+<span class="sd">    Attribute access and instantiation both raise; protocol dunder lookups raise</span>
+<span class="sd">    AttributeError instead, so ordinary introspection (``repr``, ``copy``,</span>
+<span class="sd">    ``inspect``) keeps working rather than exploding with the wrong error type.</span>
+<span class="sd">    """</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__getattr__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="n">name</span><span class="p">):</span>
+        <span class="n">is_protocol_dunder</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">name</span><span class="o">.</span><span class="n">startswith</span><span class="p">(</span><span class="s2">"__"</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">name</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">"__"</span><span class="p">)</span>
+            <span class="ow">and</span> <span class="n">name</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">INFORMATIONAL_DUNDERS</span>
+        <span class="p">)</span>
+        <span class="k">if</span> <span class="n">is_protocol_dunder</span><span class="p">:</span>
+            <span class="k">raise</span> <span class="ne">AttributeError</span><span class="p">(</span><span class="n">name</span><span class="p">)</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_missing_dependency_message</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__call__</span><span class="p">(</span><span class="bp">cls</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="bp">cls</span><span class="o">.</span><span class="n">_missing_dependency_message</span><span class="p">)</span>
+
+    <span class="k">def</span><span class="w"> </span><span class="fm">__repr__</span><span class="p">(</span><span class="bp">cls</span><span class="p">):</span>
+        <span class="k">return</span> <span class="sa">f</span><span class="s2">"&lt;missing optional dependency: </span><span class="si">{</span><span class="bp">cls</span><span class="o">.</span><span class="n">_missing_dependency_target</span><span class="si">}</span><span class="s2">&gt;"</span></div>
+
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">_placeholder</span><span class="p">(</span><span class="n">target</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">message</span><span class="p">:</span> <span class="nb">str</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Make the stand-in class bound in place of an import that did not work.</span>
+
+<span class="sd">    :param target: What could not be bound, e.g. ``"matplotlib.cm.get_cmap"``</span>
+<span class="sd">    :param message: The ImportError text raised when anyone uses it</span>
+<span class="sd">    """</span>
+    <span class="k">return</span> <span class="n">MissingDependencyType</span><span class="p">(</span>
+        <span class="s2">"MissingOptionalDependency"</span><span class="p">,</span>
+        <span class="p">(),</span>
+        <span class="p">{</span>
+            <span class="s2">"_missing_dependency_target"</span><span class="p">:</span> <span class="n">target</span><span class="p">,</span>
+            <span class="s2">"_missing_dependency_message"</span><span class="p">:</span> <span class="n">message</span><span class="p">,</span>
+            <span class="s2">"__doc__"</span><span class="p">:</span> <span class="n">message</span><span class="p">,</span>
+        <span class="p">},</span>
+    <span class="p">)</span>
+
+
+<div class="viewcode-block" id="optional_import">
+<a class="viewcode-back" href="../../module_docs/loopyng/_optional.html#loopyng._optional.optional_import">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">optional_import</span><span class="p">(</span><span class="n">module_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">used_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Import ``module_name``, or return a placeholder that explains its absence.</span>
+
+<span class="sd">    :param module_name: Module to import, e.g. ``"matplotlib.pylab"``</span>
+<span class="sd">    :param extra: The loopyng extra that provides it, e.g. ``"viz"``</span>
+<span class="sd">    :param used_by: What needs it, for the error message</span>
+<span class="sd">    :return: The module, or a placeholder raising ImportError when used</span>
+
+<span class="sd">    &gt;&gt;&gt; np = optional_import("numpy", extra="viz")</span>
+<span class="sd">    &gt;&gt;&gt; np.array([1, 2]).tolist()</span>
+<span class="sd">    [1, 2]</span>
+<span class="sd">    """</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_placeholder</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">_install_message</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">extra</span><span class="p">,</span> <span class="n">used_by</span><span class="p">))</span></div>
+
+
+
+<div class="viewcode-block" id="optional_from">
+<a class="viewcode-back" href="../../module_docs/loopyng/_optional.html#loopyng._optional.optional_from">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">optional_from</span><span class="p">(</span>
+    <span class="n">module_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">attribute</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">used_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Like ``from module_name import attribute``, tolerating a missing module.</span>
+
+<span class="sd">    :param module_name: Module to import from, e.g. ``"IPython.display"``</span>
+<span class="sd">    :param attribute: Name to pull out of it, e.g. ``"Audio"``</span>
+<span class="sd">    :param extra: The loopyng extra that provides it, e.g. ``"notebook"``</span>
+<span class="sd">    :param used_by: What needs it, for the error message</span>
+<span class="sd">    :return: The attribute, or a placeholder raising ImportError when used</span>
+
+<span class="sd">    The two ways this can fail are kept apart on purpose. A missing *module* is</span>
+<span class="sd">    an install problem and gets the "install the extra" message. A module that</span>
+<span class="sd">    imports fine but no longer has the attribute is an API/version problem, and</span>
+<span class="sd">    saying "not installed" about a package the user demonstrably has installed</span>
+<span class="sd">    sends them to pip for a fix pip cannot make:</span>
+
+<span class="sd">    &gt;&gt;&gt; array = optional_from("numpy", "array", extra="viz")</span>
+<span class="sd">    &gt;&gt;&gt; array([1, 2]).tolist()</span>
+<span class="sd">    [1, 2]</span>
+<span class="sd">    &gt;&gt;&gt; gone = optional_from("numpy", "no_such_numpy_function", extra="viz")</span>
+<span class="sd">    &gt;&gt;&gt; gone()                                          # doctest: +ELLIPSIS</span>
+<span class="sd">    Traceback (most recent call last):</span>
+<span class="sd">      ...</span>
+<span class="sd">    ImportError: numpy is installed but has no attribute 'no_such_numpy_function'...</span>
+<span class="sd">    """</span>
+    <span class="n">target</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">module_name</span><span class="si">}</span><span class="s2">.</span><span class="si">{</span><span class="n">attribute</span><span class="si">}</span><span class="s2">"</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="n">module</span> <span class="o">=</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_placeholder</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">_install_message</span><span class="p">(</span><span class="n">target</span><span class="p">,</span> <span class="n">extra</span><span class="p">,</span> <span class="n">used_by</span><span class="p">))</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">module</span><span class="p">,</span> <span class="n">attribute</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">_placeholder</span><span class="p">(</span>
+            <span class="n">target</span><span class="p">,</span> <span class="n">_api_mismatch_message</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">attribute</span><span class="p">,</span> <span class="n">used_by</span><span class="p">)</span>
+        <span class="p">)</span></div>
+
+
+
+<div class="viewcode-block" id="require">
+<a class="viewcode-back" href="../../module_docs/loopyng/_optional.html#loopyng._optional.require">[docs]</a>
+<span class="k">def</span><span class="w"> </span><span class="nf">require</span><span class="p">(</span><span class="n">module_name</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="o">*</span><span class="p">,</span> <span class="n">extra</span><span class="p">:</span> <span class="nb">str</span><span class="p">,</span> <span class="n">used_by</span><span class="p">:</span> <span class="nb">str</span> <span class="o">|</span> <span class="kc">None</span> <span class="o">=</span> <span class="kc">None</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">"""Import ``module_name`` now, raising the informative ImportError if absent.</span>
+
+<span class="sd">    For call sites that need the dependency immediately -- typically to resolve</span>
+<span class="sd">    a default argument that cannot be evaluated at import time.</span>
+
+<span class="sd">    :param module_name: Module to import</span>
+<span class="sd">    :param extra: The loopyng extra that provides it</span>
+<span class="sd">    :param used_by: What needs it, for the error message</span>
+<span class="sd">    :return: The module</span>
+
+<span class="sd">    &gt;&gt;&gt; require("numpy", extra="viz").pi  # doctest: +ELLIPSIS</span>
+<span class="sd">    3.14159...</span>
+<span class="sd">    """</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="k">return</span> <span class="n">importlib</span><span class="o">.</span><span class="n">import_module</span><span class="p">(</span><span class="n">module_name</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">ImportError</span> <span class="k">as</span> <span class="n">error</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="n">_install_message</span><span class="p">(</span><span class="n">module_name</span><span class="p">,</span> <span class="n">extra</span><span class="p">,</span> <span class="n">used_by</span><span class="p">))</span> <span class="kn">from</span><span class="w"> </span><span class="nn">error</span></div>
+
+</pre></div>
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p></p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

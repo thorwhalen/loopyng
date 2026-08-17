@@ -1,0 +1,27 @@
+.. toctree::
+   :maxdepth: 2
+   :caption: Contents:
+
+   module_docs/loopyng
+   module_docs/loopyng/_optional
+   module_docs/loopyng/examples
+   module_docs/loopyng/examples/annotated_sounds
+   module_docs/loopyng/examples/tagged_intervals
+   module_docs/loopyng/gen
+   module_docs/loopyng/gen/diagnosis_sounds
+   module_docs/loopyng/gen/signal_generators
+   module_docs/loopyng/gen/simple
+   module_docs/loopyng/gen/sine_mix
+   module_docs/loopyng/gen/util
+   module_docs/loopyng/gen/voiced_time
+   module_docs/loopyng/lite_sample_sounds
+   module_docs/loopyng/scrap
+   module_docs/loopyng/sound
+   module_docs/loopyng/sound/audio
+   module_docs/loopyng/sound/audio_librosa
+   module_docs/loopyng/util
+   module_docs/loopyng/utils
+   module_docs/loopyng/utils/date_ticks
+   module_docs/loopyng/utils/infinite_waveform
+   module_docs/loopyng/utils/librosa_utils
+   module_docs/loopyng/utils/plotting
