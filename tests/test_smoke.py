@@ -124,6 +124,29 @@ def test_random_samples_respects_max_amplitude():
 
 
 # --------------------------------------------------------------------------
+# loopyng.gen.signal_generators
+# --------------------------------------------------------------------------
+
+
+def test_bernoulli_returns_a_python_int():
+    """Guards a numpy-2 incompatibility the 3.12 CI matrix surfaced.
+
+    ``bernoulli`` drew with ``size=1`` and called ``int()`` on the resulting
+    one-element array. That was a DeprecationWarning under numpy 1.25 and is a
+    TypeError from numpy 2 onwards, so the doctest passed on a pinned older
+    numpy and failed on a fresh install.
+    """
+    from loopyng.gen.signal_generators import bernoulli
+
+    for p_out, expected in [(0, 0), (1, 1)]:
+        value = bernoulli(p_out)
+        assert value == expected
+        assert type(value) is int, f"expected a Python int, got {type(value)}"
+
+    assert {bernoulli(0.5) for _ in range(50)} <= {0, 1}
+
+
+# --------------------------------------------------------------------------
 # tag_wf_gen -- tagged waveform stream
 # --------------------------------------------------------------------------
 

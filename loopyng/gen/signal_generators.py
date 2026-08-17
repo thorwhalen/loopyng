@@ -101,7 +101,9 @@ def bernoulli(p_out=0.1):
     """
     a = [0, 1]
     p = [1.0 - p_out, p_out]
-    return int(np.random.choice(a, size=1, replace=True, p=p))
+    # Draw a scalar, not a size-1 array: int() on a one-element array was
+    # deprecated in numpy 1.25 and is a TypeError from numpy 2 onwards.
+    return int(np.random.choice(a, replace=True, p=p))
 
 
 def bernoulli_gen(p_out=0.5):
