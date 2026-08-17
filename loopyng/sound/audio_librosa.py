@@ -19,8 +19,16 @@ from numpy import (
 from numpy.random import randint
 import soundfile as sf
 import os
-import matplotlib.pylab as plt
-from IPython.display import Audio
+
+from loopyng._optional import optional_import, optional_from
+
+# Optional: as in loopyng.sound.audio, only the display/playback paths need these.
+plt = optional_import(
+    "matplotlib.pylab", extra="viz", used_by="loopyng.sound.audio_librosa"
+)
+Audio = optional_from(
+    "IPython.display", "Audio", extra="notebook", used_by="loopyng.sound.audio_librosa"
+)
 
 from loopyng.utils.plotting import plot_wf
 
@@ -245,9 +253,9 @@ class Sound:
         return librosa.amplitude_to_db(S, ref=max)
 
     def __add__(self, append_sound):
-        assert (
-            self.sr == append_sound.sr
-        ), "Sounds need to have the same sample rate to be appended"
+        assert self.sr == append_sound.sr, (
+            "Sounds need to have the same sample rate to be appended"
+        )
         return Sound(sr=self.sr, wf=hstack(self.wf, append_sound.wf))
 
     ####################################################################################################################
@@ -255,9 +263,9 @@ class Sound:
 
     def hear(self, autoplay=False, **kwargs):
         wf = array(ensure_mono(self.wf)).astype(float)
-        wf[
-            randint(len(wf))
-        ] *= 1.001  # hack to avoid having exactly the same sound twice (creates an Audio bug)
+        wf[randint(len(wf))] *= (
+            1.001  # hack to avoid having exactly the same sound twice (creates an Audio bug)
+        )
         return Audio(data=wf, rate=self.sr, autoplay=autoplay, **kwargs)
 
     def plot_wf(*args, **kwargs):

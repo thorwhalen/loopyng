@@ -5,6 +5,30 @@ Generate synthetic signals for ML pipelines
 
 To install:	```pip install loopyng```
 
+## Installation and extras
+
+`pip install loopyng` gives you the signal-generation core -- every waveform
+generator, the tagged-waveform streams, and `Sound` -- on top of numpy, scipy
+and soundfile only.
+
+The visualization, notebook-playback and tabular features live behind extras:
+
+| Install | Adds | Needed for |
+|---|---|---|
+| `pip install loopyng` | -- | all waveform generation |
+| `pip install "loopyng[viz]"` | matplotlib >= 3.6 | `plot_wf`, `disp_wf`, `specshow` |
+| `pip install "loopyng[notebook]"` | IPython, matplotlib >= 3.6 | the in-notebook `Audio` playback widget |
+| `pip install "loopyng[data]"` | pandas, scikit-learn | `session_to_df`, `voices_df`, `examples.annotated_sounds` |
+| `pip install "loopyng[full]"` | all of the above | everything |
+
+> **Changed in 0.2.0.** IPython, matplotlib, pandas and scikit-learn used to be
+> hard requirements, so a bare `pip install loopyng` pulled the whole plotting
+> and data-science stack in for a library whose core is numpy arrays. They are
+> now extras. If you use the plotting or notebook features, install
+> `loopyng[viz]`, `loopyng[notebook]` or `loopyng[full]` instead. Nothing fails
+> silently -- calling a function that needs a missing extra raises an
+> `ImportError` telling you exactly which one to install.
+
 # functionality
 This notebook gathers various examples of the functionality of `loopyng`:
 - Synthetic datasets
@@ -21,30 +45,31 @@ This notebook gathers various examples of the functionality of `loopyng`:
 
 
 ```python
-from loopyng import (mk_sine_wf, 
-                 freq_based_stationary_wf, 
-                 BinarySound, 
-                 WfGen, 
-                 TimeSound, 
-                 mk_some_buzz_wf, 
-                 wf_with_timed_bleeps,
-                 Sound,
-                 plot_wf,
-                 disp_wf,
-                 InfiniteWaveform,
-                 Voicer, 
-                 tell_time_continuously,
-                 random_samples,
-                 pure_tone,
-                 triangular_tone,
-                 square_tone,
-                 AnnotatedWaveform,
-                 gen_words,
-                 categorical_gen,
-                 bernoulli_gen,
-                 create_session,
-                 session_to_df
-                )
+from loopyng import (
+    mk_sine_wf,
+    freq_based_stationary_wf,
+    BinarySound,
+    WfGen,
+    TimeSound,
+    mk_some_buzz_wf,
+    wf_with_timed_bleeps,
+    Sound,
+    plot_wf,
+    disp_wf,
+    InfiniteWaveform,
+    Voicer,
+    tell_time_continuously,
+    random_samples,
+    pure_tone,
+    triangular_tone,
+    square_tone,
+    AnnotatedWaveform,
+    gen_words,
+    categorical_gen,
+    bernoulli_gen,
+    create_session,
+    session_to_df,
+)
 import matplotlib.pyplot as plt
 from numpy.random import randint
 import numpy as np
@@ -62,7 +87,7 @@ There are several different forms of synthetic data that `loopyng` can produce t
 DFLT_N_SAMPLES = 21 * 2048
 DFLT_SR = 44100
 wf = mk_sine_wf(freq=5, n_samples=DFLT_N_SAMPLES, sr=DFLT_SR, phase=0, gain=1)
-plt.plot(wf);
+plt.plot(wf)
 ```
 
 
@@ -73,8 +98,8 @@ plt.plot(wf);
 
 
 ```python
-wf = mk_sine_wf(freq=20, n_samples=DFLT_N_SAMPLES, sr=DFLT_SR, phase = 0.25, gain = 3)
-plt.plot(wf);
+wf = mk_sine_wf(freq=20, n_samples=DFLT_N_SAMPLES, sr=DFLT_SR, phase=0.25, gain=3)
+plt.plot(wf)
 ```
 
 
@@ -87,9 +112,10 @@ plt.plot(wf);
 
 
 ```python
-wf_mix = freq_based_stationary_wf(freqs=(2, 4, 6, 8), weights=None,
-                             n_samples = DFLT_N_SAMPLES, sr = DFLT_SR)
-plt.plot(wf_mix);
+wf_mix = freq_based_stationary_wf(
+    freqs=(2, 4, 6, 8), weights=None, n_samples=DFLT_N_SAMPLES, sr=DFLT_SR
+)
+plt.plot(wf_mix)
 ```
 
 
@@ -100,9 +126,10 @@ plt.plot(wf_mix);
 
 
 ```python
-wf_mix = freq_based_stationary_wf(freqs=(2, 4, 6, 8), weights=(3,3,1,1),
-                             n_samples = DFLT_N_SAMPLES, sr = DFLT_SR)
-plt.plot(wf_mix);
+wf_mix = freq_based_stationary_wf(
+    freqs=(2, 4, 6, 8), weights=(3, 3, 1, 1), n_samples=DFLT_N_SAMPLES, sr=DFLT_SR
+)
+plt.plot(wf_mix)
 ```
 
 
@@ -143,7 +170,7 @@ np.array(lookup).T
 
 
 ```python
-plt.plot(wf);
+plt.plot(wf)
 ```
 
 
@@ -154,8 +181,10 @@ plt.plot(wf);
 
 
 ```python
-wf_weight = wfgen.mk_wf_from_freq_weight_array(n_frm=10000, freq_weight_array=(10,1,6))
-plt.plot(wf_weight);
+wf_weight = wfgen.mk_wf_from_freq_weight_array(
+    n_frm=10000, freq_weight_array=(10, 1, 6)
+)
+plt.plot(wf_weight)
 ```
 
 
@@ -172,9 +201,9 @@ plt.plot(wf_weight);
 
 ```python
 bs = BinarySound(nbits=50, redundancy=142, repetition=3, header_size_words=1)
-utc = randint(0,2,50)
+utc = randint(0, 2, 50)
 wf = bs.mk_phrase(utc)
-plt.plot(wf[:200]);
+plt.plot(wf[:200])
 all(bs.decode(wf) == utc)
 ```
 
@@ -195,9 +224,11 @@ all(bs.decode(wf) == utc)
 
 
 ```python
-bs = BinarySound.for_audio_params(nbits=50, freq=6000, chk_size_frm=43008, sr=44100, header_size_words=1)
+bs = BinarySound.for_audio_params(
+    nbits=50, freq=6000, chk_size_frm=43008, sr=44100, header_size_words=1
+)
 wf = bs.mk_phrase(utc)
-plt.plot(wf[:200]);
+plt.plot(wf[:200])
 all(bs.decode(wf) == utc)
 ```
 
@@ -218,7 +249,7 @@ utc phrases can be generated using `mk_utc_phrases` when `BinarySound` is instan
 
 
 ```python
-plt.plot(bs.mk_utc_phrases()[:200]);
+plt.plot(bs.mk_utc_phrases()[:200])
 ```
 
 
@@ -233,7 +264,7 @@ plt.plot(bs.mk_utc_phrases()[:200]);
 ```python
 time = TimeSound(sr=44100, buf_size_frm=2048, amplitude=0.5, n_ums_bits=30)
 wf = time.timestamped_wf()
-plt.plot(wf[2000:2300]);
+plt.plot(wf[2000:2300])
 ```
 
 
@@ -247,7 +278,7 @@ plt.plot(wf[2000:2300]);
 
 ```python
 wf = mk_some_buzz_wf(sr=DFLT_SR)
-plt.plot(wf[:500]);
+plt.plot(wf[:500])
 ```
 
 
@@ -258,8 +289,10 @@ plt.plot(wf[:500]);
 
 
 ```python
-wf = wf_with_timed_bleeps(n_samples=DFLT_SR*2, bleep_loc=400, bleep_spec=100, sr=DFLT_SR)
-plt.plot(wf[:150]);
+wf = wf_with_timed_bleeps(
+    n_samples=DFLT_SR * 2, bleep_loc=400, bleep_spec=100, sr=DFLT_SR
+)
+plt.plot(wf[:150])
 ```
 
 
@@ -276,8 +309,10 @@ plt.plot(wf[:150]);
 ```python
 symb_res = categorical_gen(gen_words)
 out_res = bernoulli_gen(p_out=0.01)
-df = session_to_df(create_session(symb_res, out_res, alphabet=list('abcde'), session_length=500))
-df.plot(subplots=True, figsize=(20,7));
+df = session_to_df(
+    create_session(symb_res, out_res, alphabet=list("abcde"), session_length=500)
+)
+df.plot(subplots=True, figsize=(20, 7))
 ```
 
 
@@ -388,7 +423,7 @@ iwf = InfiniteWaveform(wf)
 
 
 ```python
-wf = list(iwf.query(0,500000))
+wf = list(iwf.query(0, 500000))
 ```
 
 
@@ -420,7 +455,7 @@ Sound(wf=wf).display()
 
 
 ```python
-wf = random_samples(chk_size_frm=21*2048, max_amplitude=30000)
+wf = random_samples(chk_size_frm=21 * 2048, max_amplitude=30000)
 disp_wf(wf=wf, sr=sr)
 Sound(wf=wf).display()
 ```
@@ -441,12 +476,12 @@ Sound(wf=wf).display()
 
 
 ```python
-wf = pure_tone(chk_size_frm=21*2048, freq=440, sr=44100, max_amplitude=30000)
+wf = pure_tone(chk_size_frm=21 * 2048, freq=440, sr=44100, max_amplitude=30000)
 disp_wf(wf=wf, sr=sr)
 Sound(wf=wf).display()
 ```
 
-    /Users/owenlloyd/opt/anaconda3/envs/oto3/lib/python3.8/site-packages/matplotlib/axes/_axes.py:7723: RuntimeWarning: divide by zero encountered in log10
+    .../site-packages/matplotlib/axes/_axes.py:7723: RuntimeWarning: divide by zero encountered in log10
       Z = 10. * np.log10(spec)
 
 
@@ -466,7 +501,7 @@ Sound(wf=wf).display()
 
 
 ```python
-wf = triangular_tone(chk_size_frm=21*2048, freq=440, sr=44100, max_amplitude=30000)
+wf = triangular_tone(chk_size_frm=21 * 2048, freq=440, sr=44100, max_amplitude=30000)
 disp_wf(wf=wf, sr=sr)
 Sound(wf=wf).display()
 ```
@@ -487,7 +522,7 @@ Sound(wf=wf).display()
 
 
 ```python
-wf = square_tone(chk_size_frm=21*2048, freq=440, sr=44100, max_amplitude=30000)
+wf = square_tone(chk_size_frm=21 * 2048, freq=440, sr=44100, max_amplitude=30000)
 disp_wf(wf=wf, sr=sr)
 Sound(wf=wf).display()
 ```
@@ -508,7 +543,7 @@ Sound(wf=wf).display()
 
 
 ```python
-awf = AnnotatedWaveform(chk_size_frm=21*2048, freq=440, sr=44100, max_amplitude=30000)
+awf = AnnotatedWaveform(chk_size_frm=21 * 2048, freq=440, sr=44100, max_amplitude=30000)
 gen = awf.chk_and_tag_gen()
 list(gen)
 ```

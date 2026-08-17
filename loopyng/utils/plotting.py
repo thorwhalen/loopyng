@@ -5,12 +5,25 @@ Provides functions for displaying waveforms with proper time axes and playback o
 """
 
 from inspect import getmodule
-import matplotlib.pylab as plt
 from numpy import linspace
+from loopyng._optional import optional_import, optional_from
 from loopyng.utils.date_ticks import str_ticks
+
+# Optional: plotting needs matplotlib, notebook playback needs IPython. Both are
+# bound lazily so `import loopyng` works on a bare install; using a function that
+# actually needs one raises an ImportError naming the extra to install.
+plt = optional_import("matplotlib.pylab", extra="viz", used_by="loopyng.utils.plotting")
+Audio = optional_from(
+    "IPython.display", "Audio", extra="notebook", used_by="loopyng.utils.plotting"
+)
 
 DFLT_FIGSIZE_FOR_WF_PLOTS = (22, 5)
 DFLT_SR = 44100
+
+# Sentinel for disp_wf's default plotting function. It cannot default directly to
+# plt.specgram: that would touch matplotlib at import time, which is exactly what
+# the optional-dependency handling exists to avoid.
+DFLT_WF_PLOT_FUNC = "specgram"
 
 
 def getmodulename(obj, default=""):
@@ -37,7 +50,7 @@ def plot_wf(
         _ax.plot(
             offset_s + linspace(start=0, stop=len(wf) / float(sr), num=len(wf)),
             wf,
-            **kwargs
+            **kwargs,
         )
         plt.margins(x=0)
     else:
@@ -55,14 +68,23 @@ def plot_wf(
         plt.margins(x=0)
 
 
-def disp_wf(wf, sr=DFLT_SR, autoplay=False, wf_plot_func=plt.specgram):
+def disp_wf(wf, sr=DFLT_SR, autoplay=False, wf_plot_func=DFLT_WF_PLOT_FUNC):
+    """Plot a waveform and return an IPython Audio widget for it.
+
+    :param wf: The waveform to display
+    :param sr: Sample rate
+    :param autoplay: Whether the returned Audio widget should play immediately
+    :param wf_plot_func: Plotting function, or the name of a ``matplotlib.pylab``
+        one (default: ``"specgram"``). Pass ``None`` to skip plotting.
+
+    Needs the ``viz`` extra to plot and the ``notebook`` extra for the widget.
+    """
+    if isinstance(wf_plot_func, str):
+        # Resolved here, not at import time, so a bare install can still import
+        # this module -- and gets a clear error naming the extra if it plots.
+        wf_plot_func = getattr(plt, wf_plot_func)
     if wf_plot_func is not None:
         if getmodulename(wf_plot_func, "").startswith("matplotlib"):
             plt.figure(figsize=DFLT_FIGSIZE_FOR_WF_PLOTS)
         wf_plot_func(wf, sr)
-    try:
-        from IPython.display import Audio
-
-        return Audio(data=wf, rate=sr, autoplay=autoplay)
-    except:
-        pass
+    return Audio(data=wf, rate=sr, autoplay=autoplay)

@@ -26,19 +26,50 @@ ARISING OUT OF OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
 
 import warnings
 import numpy as np
-from matplotlib.cm import get_cmap
-from matplotlib.axes import Axes
-from matplotlib.ticker import Formatter, ScalarFormatter
-from matplotlib.ticker import MaxNLocator
-from matplotlib.ticker import SymmetricalLogLocator
-import matplotlib
+from loopyng._optional import optional_import, optional_from, require
 from packaging.version import parse as version_parse
 import scipy
 import scipy.signal
 from numpy.lib.stride_tricks import as_strided
 import re
 
+# Only the *display* half of this module (specshow and its tick formatters) needs
+# matplotlib; melspectrogram, amplitude_to_db and friends are pure numpy/scipy.
+# Binding these lazily keeps the DSP half usable -- and importable -- without the
+# viz extra, while anything that actually draws raises a clear ImportError.
+_MPL = dict(extra="viz", used_by="loopyng.utils.librosa_utils")
+matplotlib = optional_import("matplotlib", **_MPL)
+Axes = optional_from("matplotlib.axes", "Axes", **_MPL)
+Formatter = optional_from("matplotlib.ticker", "Formatter", **_MPL)
+ScalarFormatter = optional_from("matplotlib.ticker", "ScalarFormatter", **_MPL)
+MaxNLocator = optional_from("matplotlib.ticker", "MaxNLocator", **_MPL)
+SymmetricalLogLocator = optional_from(
+    "matplotlib.ticker", "SymmetricalLogLocator", **_MPL
+)
+
 MAX_MEM_BLOCK = 2**8 * 2**10
+
+
+def get_cmap(name, lut=None):
+    """Look up a named colormap, optionally resampled down to ``lut`` colors.
+
+    Stands in for ``matplotlib.cm.get_cmap``, which the vendored librosa code was
+    written against and which **no longer exists**: deprecated in matplotlib 3.7
+    and removed in 3.11. The supported spelling is the colormap registry
+    (``matplotlib.colormaps``, since 3.5) plus ``Colormap.resampled`` (since
+    3.6), which is why the viz extra floors matplotlib at 3.6.
+
+    Kept as a module-level function rather than an ``optional_from`` binding so
+    that a missing matplotlib is reported against ``matplotlib`` itself, which is
+    the package the user would actually install.
+
+    :param name: A registered colormap name, e.g. ``"magma"``
+    :param lut: If given, resample the colormap to this many colors
+    :return: A ``matplotlib.colors.Colormap``
+    """
+    colormap = matplotlib.colormaps[name]
+    return colormap.resampled(lut) if lut is not None else colormap
+
 
 # specshow
 
@@ -66,7 +97,7 @@ def specshow(
 ):
     if np.issubdtype(data.dtype, np.complexfloating):
         warnings.warn(
-            "Trying to display complex-valued input. " "Showing magnitude instead."
+            "Trying to display complex-valued input. Showing magnitude instead."
         )
         data = np.abs(data)
 
@@ -139,9 +170,7 @@ def __mesh_coords(ax_type, coords, n, **kwargs):
 
     if coords is not None:
         if len(coords) < n:
-            raise Exception(
-                "Coordinate shape mismatch: " "{}<{}".format(len(coords), n)
-            )
+            raise Exception("Coordinate shape mismatch: {}<{}".format(len(coords), n))
         return coords
 
     coord_map = {
@@ -364,7 +393,7 @@ def __coord_fft_hz(n, sr=22050, **_kwargs):
 def __check_axes(axes):
     """Check if "axes" is an instance of an axis object. If not, use `gca`."""
     if axes is None:
-        import matplotlib.pyplot as plt
+        plt = require("matplotlib.pyplot", **_MPL)
 
         axes = plt.gca()
     elif not isinstance(axes, Axes):
@@ -382,7 +411,7 @@ def __set_current_image(ax, img):
     """
 
     if ax is None:
-        import matplotlib.pyplot as plt
+        plt = require("matplotlib.pyplot", **_MPL)
 
         plt.sci(img)
 
@@ -669,7 +698,7 @@ def get_window(window, Nx, fftbins=True):
         if len(window) == Nx:
             return np.asarray(window)
 
-        raise Exception("Window size mismatch: " "{:d} != {:d}".format(len(window), Nx))
+        raise Exception("Window size mismatch: {:d} != {:d}".format(len(window), Nx))
     else:
         raise Exception(f"Invalid window specification: {window}")
 
@@ -686,7 +715,7 @@ def pad_center(data, size, axis=-1, **kwargs):
 
     if lpad < 0:
         raise Exception(
-            ("Target size ({:d}) must be " "at least input size ({:d})").format(size, n)
+            ("Target size ({:d}) must be at least input size ({:d})").format(size, n)
         )
 
     return np.pad(data, lengths, **kwargs)
@@ -701,8 +730,9 @@ def valid_audio(y, mono=True):
 
     if mono and y.ndim != 1:
         raise Exception(
-            "Invalid shape for monophonic audio: "
-            "ndim={:d}, shape={}".format(y.ndim, y.shape)
+            "Invalid shape for monophonic audio: ndim={:d}, shape={}".format(
+                y.ndim, y.shape
+            )
         )
 
     elif y.ndim > 2 or y.ndim == 0:
@@ -713,7 +743,7 @@ def valid_audio(y, mono=True):
 
     elif y.ndim == 2 and y.shape[0] < 2:
         raise Exception(
-            "Mono data must have shape (samples,). " "Received shape={}".format(y.shape)
+            "Mono data must have shape (samples,). Received shape={}".format(y.shape)
         )
 
     if not np.isfinite(y).all():
@@ -725,13 +755,14 @@ def valid_audio(y, mono=True):
 def frame(x, frame_length, hop_length, axis=-1):
     if not isinstance(x, np.ndarray):
         raise Exception(
-            "Input must be of type numpy.ndarray, " "given type(x)={}".format(type(x))
+            "Input must be of type numpy.ndarray, given type(x)={}".format(type(x))
         )
 
     if x.shape[axis] < frame_length:
         raise Exception(
-            "Input is too short (n={:d})"
-            " for frame_length={:d}".format(x.shape[axis], frame_length)
+            "Input is too short (n={:d}) for frame_length={:d}".format(
+                x.shape[axis], frame_length
+            )
         )
 
     if hop_length < 1:
@@ -934,7 +965,7 @@ def normalize(S, norm=np.inf, axis=0, threshold=None, fill=None):
         threshold = tiny(S)
 
     elif threshold <= 0:
-        raise Exception("threshold={} must be strictly " "positive".format(threshold))
+        raise Exception("threshold={} must be strictly positive".format(threshold))
 
     if fill not in [None, False, True]:
         raise Exception(f"fill={fill} must be None or boolean")
@@ -1300,7 +1331,7 @@ def spectral_contrast(
     freq = np.atleast_1d(freq)
 
     if freq.ndim != 1 or len(freq) != S.shape[0]:
-        raise Exception("freq.shape mismatch: expected " "({:d},)".format(S.shape[0]))
+        raise Exception("freq.shape mismatch: expected ({:d},)".format(S.shape[0]))
 
     if n_bands < 1 or not isinstance(n_bands, int):
         raise Exception("n_bands must be a positive integer")
@@ -1316,7 +1347,7 @@ def spectral_contrast(
 
     if np.any(octa[:-1] >= 0.5 * sr):
         raise Exception(
-            "Frequency band exceeds Nyquist. " "Reduce either fmin or n_bands."
+            "Frequency band exceeds Nyquist. Reduce either fmin or n_bands."
         )
 
     valley = np.zeros((n_bands + 1, S.shape[1]))
@@ -1391,11 +1422,9 @@ def spectral_centroid(
     )
 
     if not np.isrealobj(S):
-        raise Exception("Spectral centroid is only defined " "with real-valued input")
+        raise Exception("Spectral centroid is only defined with real-valued input")
     elif np.any(S < 0):
-        raise Exception(
-            "Spectral centroid is only defined " "with non-negative energies"
-        )
+        raise Exception("Spectral centroid is only defined with non-negative energies")
 
     # Compute the center frequencies of each bin
     if freq is None:

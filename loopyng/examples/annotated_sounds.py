@@ -5,14 +5,34 @@ import itertools
 from itertools import starmap
 from functools import partial
 
-import pandas as pd
 import numpy as np
-from sklearn.preprocessing import MinMaxScaler
 
 from i2 import Pipe
 from slink import dict_generator, GetFromIter, Repeater
 
+from loopyng._optional import optional_import, require
 from loopyng.gen.sine_mix import dflt_wf_params_to_wf
+
+# Optional: this example needs the tabular/scaling stack. Bound lazily so the
+# module still imports (and documents) without the `data` extra installed.
+pd = optional_import(
+    "pandas", extra="data", used_by="loopyng.examples.annotated_sounds"
+)
+
+# Sentinel for the default scaler. It cannot default to MinMaxScaler().fit_transform
+# directly: that would instantiate a scikit-learn object at import time, which is
+# exactly what the optional-dependency handling exists to avoid.
+DFLT_ANNOTS_DF_TO_WF_PARAMS = "MinMaxScaler"
+
+
+def _resolve_scaler(scaler_name):
+    """Turn a ``sklearn.preprocessing`` class name into its ``fit_transform``."""
+    preprocessing = require(
+        "sklearn.preprocessing",
+        extra="data",
+        used_by="loopyng.examples.annotated_sounds",
+    )
+    return getattr(preprocessing, scaler_name)().fit_transform
 
 
 def session_phase_rpm_temparature(
@@ -26,11 +46,15 @@ def session_phase_rpm_temparature(
         "rpm",
         "temperature",
     ),  # TODO: perhaps an exclusion list is more general
-    annots_df_to_wf_params=MinMaxScaler().fit_transform,
+    annots_df_to_wf_params=DFLT_ANNOTS_DF_TO_WF_PARAMS,
     params_and_duration_to_wf=lambda p, duration: dflt_wf_params_to_wf(
         p, n_samples=duration
     ),
 ):
+    if isinstance(annots_df_to_wf_params, str):
+        # Resolved here, not at import time, so this module imports without the
+        # `data` extra and only errors (clearly) if the example is actually run.
+        annots_df_to_wf_params = _resolve_scaler(annots_df_to_wf_params)
     wf_params_cols = list(wf_params_cols)
     f = dict_generator(
         # make n_sessions copies of the dict so far... i.e. empty dict

@@ -124,13 +124,11 @@ class BinarySound:
             elif header_pattern == "alternating":
                 header_pattern = array([1, 0] * int(ceil(nbits / 2)))[:nbits]
             else:
-                raise ValueError(
-                    f"header_pattern not recognized: {header_pattern}"
-                )
+                raise ValueError(f"header_pattern not recognized: {header_pattern}")
         else:
-            assert (
-                len(header_pattern) == nbits
-            ), f"header_pattern must have nbits={nbits}"
+            assert len(header_pattern) == nbits, (
+                f"header_pattern must have nbits={nbits}"
+            )
             assert set(unique(header_pattern).astype(int)) == {
                 0,
                 1,
@@ -321,9 +319,7 @@ class WfGen:
 
 class TimeSound(WfGen):
     def __init__(self, sr=DFLT_SR, buf_size_frm=2048, amplitude=0.5, n_ums_bits=30):
-        super().__init__(
-            sr=sr, buf_size_frm=buf_size_frm, amplitude=amplitude
-        )
+        super().__init__(sr=sr, buf_size_frm=buf_size_frm, amplitude=amplitude)
         self.n_ums_bits = n_ums_bits
         self.ums_bits_str_format = "{:0" + str(n_ums_bits) + "b}"
         self.n_freqs_per_ums_bit = len(self.lookup_tables) // self.n_ums_bits

@@ -6,7 +6,14 @@ import numpy as np
 import random
 from itertools import chain
 from collections.abc import Iterable
-import pandas as pd
+
+from loopyng._optional import optional_import
+
+# Optional: only session_to_df builds a DataFrame; every other generator here is
+# pure numpy, so pandas is bound lazily rather than required to import this module.
+pd = optional_import(
+    "pandas", extra="data", used_by="loopyng.gen.signal_generators.session_to_df"
+)
 
 DFLT_WORD_LENGTH = 30
 DFLT_ALPHABET = "abcde"
@@ -94,7 +101,9 @@ def bernoulli(p_out=0.1):
     """
     a = [0, 1]
     p = [1.0 - p_out, p_out]
-    return int(np.random.choice(a, size=1, replace=True, p=p))
+    # Draw a scalar, not a size-1 array: int() on a one-element array was
+    # deprecated in numpy 1.25 and is a TypeError from numpy 2 onwards.
+    return int(np.random.choice(a, replace=True, p=p))
 
 
 def bernoulli_gen(p_out=0.5):
