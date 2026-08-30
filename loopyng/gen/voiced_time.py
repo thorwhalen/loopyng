@@ -139,8 +139,3 @@ with suppress(ModuleNotFoundError, ImportError):
                 time_format=time_format,
             )
             voicer.tell_time_continuously(every_secs, verbose=verbose)
-
-    if __name__ == "__main__":
-        import argh
-
-        argh.dispatch_command(tell_time_continuously)

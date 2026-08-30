@@ -36,7 +36,6 @@ classifiers = [
 # them. Plotting, notebook playback and the tabular/scaling stack are extras --
 # see [project.optional-dependencies] and loopyng/_optional.py.
 dependencies = [
-    "argh",
     "numpy",
     "packaging",
     "scipy",
