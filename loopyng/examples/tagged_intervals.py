@@ -247,8 +247,3 @@ def five_channel_json_data(
     json_str = intervals_to_json(intervals, rescaler=rescaler)
     return json_str
 
-
-if __name__ == "__main__":
-    import argh
-
-    argh.dispatch_command(five_channel_json_data)
