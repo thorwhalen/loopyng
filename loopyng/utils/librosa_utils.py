@@ -255,7 +255,7 @@ def __coord_chroma(n, bins_per_octave=12, **_kwargs):
 
 
 def tempo_frequencies(n_bins, hop_length=512, sr=22050):
-    bin_frequencies = np.zeros(int(n_bins), dtype=np.float)
+    bin_frequencies = np.zeros(int(n_bins), dtype=float)
 
     bin_frequencies[0] = np.inf
     bin_frequencies[1:] = 60.0 * sr / (hop_length * np.arange(1.0, n_bins))
@@ -974,7 +974,7 @@ def normalize(S, norm=np.inf, axis=0, threshold=None, fill=None):
         raise Exception("Input must be finite")
 
     # All norms only depend on magnitude, let's do that first
-    mag = np.abs(S).astype(np.float)
+    mag = np.abs(S).astype(float)
 
     # For max/min norms, filling with 1 works
     fill_norm = 1
