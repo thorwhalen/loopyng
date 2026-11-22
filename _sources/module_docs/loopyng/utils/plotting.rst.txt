@@ -1,4 +1,0 @@
-loopyng.utils.plotting
-======================
-.. automodule:: loopyng.utils.plotting
-   :members:

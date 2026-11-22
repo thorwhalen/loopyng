@@ -1,0 +1,14 @@
+loopyng.sound
+=============
+
+.. automodule:: loopyng.sound
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   audio
+   audio_librosa

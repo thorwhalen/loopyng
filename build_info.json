@@ -1,0 +1,75 @@
+{
+  "schema_version": 1,
+  "built_at": "2026-11-22T13:01:36Z",
+  "package": {
+    "name": "loopyng",
+    "version": "0.2.4",
+    "display_name": "loopyng",
+    "source": "pyproject.toml"
+  },
+  "git": {
+    "available": true,
+    "commit": "0e7a27f41b61fceee4fc8c331158b11e7a433ece",
+    "short_commit": "0e7a27f",
+    "branch": "main",
+    "tags": [
+      "0.2.4"
+    ],
+    "dirty": false,
+    "remote_url": "https://github.com/thorwhalen/loopyng",
+    "commit_url": "https://github.com/thorwhalen/loopyng/commit/0e7a27f41b61fceee4fc8c331158b11e7a433ece",
+    "error": null
+  },
+  "ci": {
+    "provider": "github",
+    "repository": "thorwhalen/loopyng",
+    "sha": "2e469fbab108a5cc2ac7b12d496ebd7dd987373e",
+    "sha_in_history": true,
+    "ref": "refs/heads/main",
+    "ref_name": "main",
+    "run_id": "45025056996",
+    "run_url": "https://github.com/thorwhalen/loopyng/actions/runs/45025056996",
+    "server_url": "https://github.com"
+  },
+  "tools": {
+    "epythet": "0.2.23",
+    "sphinx": "9.1.1",
+    "docutils": "0.22.4",
+    "python": "3.12.16"
+  },
+  "config": {
+    "theme": "auto",
+    "html_theme": "furo",
+    "accent": "#006194",
+    "mode": "auto",
+    "api_generator": "autosummary",
+    "ignore": [
+      "tests/",
+      "scrap/",
+      "examples/"
+    ],
+    "agent_outputs": true,
+    "aggregates": [
+      "md"
+    ],
+    "ai_artifacts": true,
+    "provenance": true,
+    "docs_dir": "docsrc"
+  },
+  "site": {
+    "modules_documented": 18,
+    "objects_documented": 46
+  },
+  "pypi": {
+    "checked": true,
+    "latest": "0.2.4",
+    "relation": "same",
+    "error": null
+  },
+  "reproduce": "git clone https://github.com/thorwhalen/loopyng && cd loopyng\ngit checkout 0e7a27f41b61fceee4fc8c331158b11e7a433ece\npip install \"epythet==0.2.23\"\nepythet quickstart . --ignore tests/ scrap/ examples/",
+  "warnings": [],
+  "alignment": {
+    "aligned": true,
+    "notes": []
+  }
+}

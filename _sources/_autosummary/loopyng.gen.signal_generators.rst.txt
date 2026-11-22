@@ -1,0 +1,23 @@
+loopyng.gen.signal\_generators
+==============================
+
+.. automodule:: loopyng.gen.signal_generators
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      alphabet_to_bins
+      bernoulli
+      bernoulli_gen
+      call_repeatedly
+      categorical_gen
+      create_session
+      gen_words
+      inlier_outlier
+      normal_dist
+      session_to_df
+      signal
+      string_to_num
+   

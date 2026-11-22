@@ -1,0 +1,13 @@
+loopyng.gen.simple
+==================
+
+.. automodule:: loopyng.gen.simple
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      inverted_tiles
+      inverted_tiles_wf
+   

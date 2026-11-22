@@ -1,0 +1,28 @@
+loopyng.gen.diagnosis\_sounds
+=============================
+
+.. automodule:: loopyng.gen.diagnosis_sounds
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      mk_some_buzz_wf
+      mk_sounds_with_timed_bleeps
+      right_triangles
+      slow_mask
+      ums_to_01_array
+      utcnow_ms
+      wf_with_timed_bleeps
+      window
+      zero_crossing_gaps
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      BinarySound
+      TimeSound
+      WfGen
+   

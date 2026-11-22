@@ -1,0 +1,6 @@
+loopyng.gen.voiced\_time
+========================
+
+.. automodule:: loopyng.gen.voiced_time
+
+   

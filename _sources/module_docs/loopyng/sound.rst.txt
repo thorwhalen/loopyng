@@ -1,4 +1,0 @@
-loopyng.sound
-=============
-.. automodule:: loopyng.sound
-   :members:

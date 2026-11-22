@@ -1,4 +1,0 @@
-loopyng
-=======
-.. automodule:: loopyng
-   :members:

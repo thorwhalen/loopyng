@@ -1,0 +1,36 @@
+# loopyng
+
+> Generate synthetic signals for ML pipelines
+
+
+## Pages
+
+- [loopyng](index.html.md): Generate synthetic signals for ML pipelines
+- [API reference](api.html.md): | &#96;loopyng&#96;   | Tools to create audio   |
+- [loopyng](_autosummary/loopyng.html.md): Tools to create audio
+- [loopyng.gen](_autosummary/loopyng.gen.html.md): Generate Audio
+- [loopyng.gen.diagnosis_sounds](_autosummary/loopyng.gen.diagnosis_sounds.html.md): Tools for generating diagnostic audio signals.
+- [loopyng.gen.signal_generators](_autosummary/loopyng.gen.signal_generators.html.md): Generating Signals
+- [loopyng.gen.simple](_autosummary/loopyng.gen.simple.html.md): Waveforms generated only with builtins (no numpy etc.)
+- [loopyng.gen.sine_mix](_autosummary/loopyng.gen.sine_mix.html.md): Utilities for creating and mixing sine wave signals.
+- [loopyng.gen.util](_autosummary/loopyng.gen.util.html.md): util, constants, defaults
+- [loopyng.gen.voiced_time](_autosummary/loopyng.gen.voiced_time.html.md): Voice-based time announcement utilities.
+- [loopyng.lite_sample_sounds](_autosummary/loopyng.lite_sample_sounds.html.md): Generate simple waveforms for audio synthesis and testing.
+- [loopyng.sound](_autosummary/loopyng.sound.html.md): Sound utils
+- [loopyng.sound.audio](_autosummary/loopyng.sound.audio.html.md): Audio processing and playback utilities.
+- [loopyng.sound.audio_librosa](_autosummary/loopyng.sound.audio_librosa.html.md): Utils to view, hear, and manipulate audio.
+- [loopyng.util](_autosummary/loopyng.util.html.md): A few general utils
+- [loopyng.utils](_autosummary/loopyng.utils.html.md): General utils
+- [loopyng.utils.date_ticks](_autosummary/loopyng.utils.date_ticks.html.md): Date tick formatting utilities for time-based plots.
+- [loopyng.utils.infinite_waveform](_autosummary/loopyng.utils.infinite_waveform.html.md): Infinite waveform generation tools.
+- [loopyng.utils.librosa_utils](_autosummary/loopyng.utils.librosa_utils.html.md): A few utils (specshow, melspectrogram) vendored from librosa.
+- [loopyng.utils.plotting](_autosummary/loopyng.utils.plotting.html.md): Plot utilities for visualizing audio waveforms and spectrograms.
+- [About this build](about-this-build.html.md): This documentation was built on &#42;&#42;2026-11-22 13:01 UTC&#42;&#42; from commit &lt;a href="https://github.com/tho...
+
+## Optional
+
+- [loopyng.md](loopyng.md): Complete documentation in a single file.
+
+## Build
+
+- [build_info.json](build_info.json): build provenance (commit, version, tool versions, whether the docs match the package)

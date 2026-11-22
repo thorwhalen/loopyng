@@ -1,0 +1,56 @@
+loopyng.utils.librosa\_utils
+============================
+
+.. automodule:: loopyng.utils.librosa_utils
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      amplitude_to_db
+      cmap
+      cqt_frequencies
+      db_to_amplitude
+      db_to_power
+      dtype_r2c
+      fft_frequencies
+      fix_frames
+      fourier_tempo_frequencies
+      frame
+      frames_to_samples
+      frames_to_time
+      get_cmap
+      get_fftlib
+      get_window
+      hz_to_mel
+      index_to_slice
+      mel
+      mel_frequencies
+      mel_to_hz
+      melspectrogram
+      midi_to_hz
+      normalize
+      note_to_hz
+      note_to_midi
+      onset_strength
+      onset_strength_multi
+      pad_center
+      power_to_db
+      samples_to_time
+      set_fftlib
+      specshow
+      spectral_centroid
+      spectral_contrast
+      stft
+      sync
+      tempo_frequencies
+      tiny
+      valid_audio
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      TimeFormatter
+   

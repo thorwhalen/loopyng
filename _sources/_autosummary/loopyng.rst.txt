@@ -1,0 +1,17 @@
+﻿loopyng
+=======
+
+.. automodule:: loopyng
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   gen
+   lite_sample_sounds
+   sound
+   util
+   utils

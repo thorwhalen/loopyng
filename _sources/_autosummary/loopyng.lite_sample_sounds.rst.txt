@@ -1,0 +1,24 @@
+loopyng.lite\_sample\_sounds
+============================
+
+.. automodule:: loopyng.lite_sample_sounds
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      chk_from_pattern
+      mk_audio_store
+      pure_tone
+      random_samples
+      square_tone
+      tag_wf_gen
+      triangular_tone
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      AnnotatedWaveform
+   

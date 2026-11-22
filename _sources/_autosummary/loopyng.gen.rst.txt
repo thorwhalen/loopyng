@@ -1,0 +1,18 @@
+loopyng.gen
+===========
+
+.. automodule:: loopyng.gen
+
+   
+.. rubric:: Modules
+
+.. autosummary::
+   :toctree:
+   :recursive:
+
+   diagnosis_sounds
+   signal_generators
+   simple
+   sine_mix
+   util
+   voiced_time

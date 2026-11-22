@@ -1,0 +1,24 @@
+loopyng.gen.sine\_mix
+=====================
+
+.. automodule:: loopyng.gen.sine_mix
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      asis
+      dflt_sprout_to_wf_params
+      dflt_wf_params_to_wf
+      freq_based_stationary_wf
+      mk_sine_wf
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      MinMaxRand
+      MinMaxRandDict
+      NumAnnotsAndWaveformChunks
+   

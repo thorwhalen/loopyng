@@ -1,0 +1,25 @@
+loopyng.sound.audio\_librosa
+============================
+
+.. automodule:: loopyng.sound.audio_librosa
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      ensure_channels_in_columns
+      ensure_mono
+      is_wav_file
+      plot_melspectrogram
+      stereo_to_mono_by_taking_first_channel
+      subtype_of_wf
+      wf_and_sr
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      Sound
+      librosa
+   

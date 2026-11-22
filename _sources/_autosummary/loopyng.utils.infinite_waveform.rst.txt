@@ -1,0 +1,12 @@
+loopyng.utils.infinite\_waveform
+================================
+
+.. automodule:: loopyng.utils.infinite_waveform
+
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      InfiniteWaveform
+   

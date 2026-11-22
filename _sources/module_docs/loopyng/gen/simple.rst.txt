@@ -1,4 +1,0 @@
-loopyng.gen.simple
-==================
-.. automodule:: loopyng.gen.simple
-   :members:

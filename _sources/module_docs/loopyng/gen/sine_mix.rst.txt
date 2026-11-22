@@ -1,4 +1,0 @@
-loopyng.gen.sine_mix
-====================
-.. automodule:: loopyng.gen.sine_mix
-   :members:

@@ -1,0 +1,14 @@
+loopyng.utils.plotting
+======================
+
+.. automodule:: loopyng.utils.plotting
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      disp_wf
+      getmodulename
+      plot_wf
+   

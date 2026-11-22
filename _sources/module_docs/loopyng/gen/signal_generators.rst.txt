@@ -1,4 +1,0 @@
-loopyng.gen.signal_generators
-=============================
-.. automodule:: loopyng.gen.signal_generators
-   :members:

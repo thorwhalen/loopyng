@@ -1,0 +1,20 @@
+loopyng.util
+============
+
+.. automodule:: loopyng.util
+
+   
+   .. rubric:: Functions
+
+   .. autosummary::
+   
+      getmodulename
+      simple_chunker
+   
+   .. rubric:: Classes
+
+   .. autosummary::
+   
+      ModuleNotFoundErrorNiceMessage
+      ModuleNotFoundIgnore
+   
