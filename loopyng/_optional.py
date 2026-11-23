@@ -37,6 +37,8 @@ therefore carry different messages, and only the first one mentions pip.
 
 import importlib
 
+from i2.optional import install_command, optional_import as _i2_optional_import
+
 PACKAGE_NAME = "loopyng"
 
 
@@ -46,7 +48,7 @@ def _install_message(target: str, extra: str, used_by: str | None) -> str:
     return (
         f"{target} is not installed{needed_by}. It is an optional dependency of "
         f"{PACKAGE_NAME}. Install it with:  "
-        f'pip install "{PACKAGE_NAME}[{extra}]"'
+        f"{install_command(target, package=PACKAGE_NAME, extra=extra)}"
     )
 
 
@@ -199,8 +201,14 @@ def require(module_name: str, *, extra: str, used_by: str | None = None):
 
     >>> require("numpy", extra="viz").pi  # doctest: +ELLIPSIS
     3.14159...
+
+    Absence is decided by :func:`i2.optional.optional_import`: only a
+    ``ModuleNotFoundError`` naming the module (or a parent) counts as "not
+    installed"; an installed module whose own imports fail re-raises unchanged.
     """
     try:
-        return importlib.import_module(module_name)
-    except ImportError as error:
-        raise ImportError(_install_message(module_name, extra, used_by)) from error
+        return _i2_optional_import(module_name, package=PACKAGE_NAME, extra=extra)
+    except ModuleNotFoundError as error:
+        raise ModuleNotFoundError(
+            _install_message(module_name, extra, used_by), name=module_name
+        ) from error

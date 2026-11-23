@@ -40,7 +40,7 @@ dependencies = [
     "packaging",
     "scipy",
     "soundfile",
-    "i2",
+    "i2>=0.1.92",
     "slink",
     "more_itertools",
 ]
