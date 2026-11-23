@@ -31,7 +31,9 @@ class BlockedImportFinder:
 
     def find_spec(self, fullname, path=None, target=None):
         if fullname.split(".")[0] in self.blocked_roots:
-            raise ImportError(f"simulated bare install: {fullname} is not installed")
+            raise ModuleNotFoundError(
+                f"simulated bare install: {fullname} is not installed", name=fullname
+            )
         return None
 
 
@@ -117,14 +119,14 @@ def test_plot_wf_names_the_viz_extra(bare_install):
         plotting.plot_wf([0, 1, 0, -1])
     message = str(excinfo.value)
     assert "matplotlib" in message
-    assert 'pip install "loopyng[viz]"' in message
+    assert "pip install 'loopyng[viz]'" in message
 
 
 def test_disp_wf_names_the_viz_extra(bare_install):
     plotting = bare_install("loopyng.utils.plotting")
     with pytest.raises(ImportError) as excinfo:
         plotting.disp_wf([0, 1, 0, -1])
-    assert 'pip install "loopyng[viz]"' in str(excinfo.value)
+    assert "pip install 'loopyng[viz]'" in str(excinfo.value)
 
 
 def test_audio_widget_names_the_notebook_extra(bare_install):
@@ -134,14 +136,14 @@ def test_audio_widget_names_the_notebook_extra(bare_install):
         plotting.disp_wf([0, 1, 0, -1], wf_plot_func=None)
     message = str(excinfo.value)
     assert "IPython" in message
-    assert 'pip install "loopyng[notebook]"' in message
+    assert "pip install 'loopyng[notebook]'" in message
 
 
 def test_session_to_df_names_the_data_extra(bare_install):
     signal_generators = bare_install("loopyng.gen.signal_generators")
     with pytest.raises(ImportError) as excinfo:
         signal_generators.pd.DataFrame()
-    assert 'pip install "loopyng[data]"' in str(excinfo.value)
+    assert "pip install 'loopyng[data]'" in str(excinfo.value)
 
 
 def test_annotated_sounds_scaler_names_the_data_extra(bare_install):
@@ -150,7 +152,7 @@ def test_annotated_sounds_scaler_names_the_data_extra(bare_install):
         annotated_sounds.session_phase_rpm_temparature()
     message = str(excinfo.value)
     assert "sklearn" in message
-    assert 'pip install "loopyng[data]"' in message
+    assert "pip install 'loopyng[data]'" in message
 
 
 def test_librosa_utils_formatter_subclass_survives_the_missing_base(bare_install):
@@ -161,7 +163,7 @@ def test_librosa_utils_formatter_subclass_survives_the_missing_base(bare_install
     librosa_utils = bare_install("loopyng.utils.librosa_utils")
     with pytest.raises(ImportError) as excinfo:
         librosa_utils.TimeFormatter()
-    assert 'pip install "loopyng[viz]"' in str(excinfo.value)
+    assert "pip install 'loopyng[viz]'" in str(excinfo.value)
 
 
 def test_placeholder_distinguishes_informational_from_protocol_dunders():
@@ -179,7 +181,7 @@ def test_placeholder_distinguishes_informational_from_protocol_dunders():
 
     with pytest.raises(ImportError) as excinfo:
         missing.__version__
-    assert 'pip install "loopyng[viz]"' in str(excinfo.value)
+    assert "pip install 'loopyng[viz]'" in str(excinfo.value)
 
     for protocol_dunder in ("__copy__", "__deepcopy__", "__wrapped__", "__iter__"):
         with pytest.raises(AttributeError):
@@ -225,7 +227,7 @@ def test_a_genuinely_missing_module_still_names_the_extra():
     message = str(excinfo.value)
 
     assert "is not installed" in message
-    assert 'pip install "loopyng[viz]"' in message
+    assert "pip install 'loopyng[viz]'" in message
 
 
 def test_dsp_half_of_librosa_utils_works_without_matplotlib(bare_install):
